@@ -1,7 +1,25 @@
 {
   "extends": "next/core-web-vitals",
-  "rules": {
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"]
-  }
+  "overrides": [
+    {
+      "files": "**/*.{js,jsx,ts,tsx}",
+      "env": {
+        "node": true
+      },
+      "rules": {
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"]
+      }
+    },
+    {
+      "files": "**/*.test.{js,jsx,ts,tsx}",
+      "globals": {
+        "jest/globals": true
+      },
+      "extends": [
+        "plugin:jest/recommended",
+        "plugin:jest/style"
+      ]
+    }
+  ]
 }
