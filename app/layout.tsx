@@ -1,11 +1,10 @@
+import { type PaletteMode } from '@mui/material';
 import { cookies } from 'next/headers';
 import { ReactNode } from 'react';
 
 import { CookiesProvider } from '@/client-utils';
 import ColorModeProvider from '@/contexts/ColorModeProvider';
-import StyleRegistry from '@/contexts/StyleRegistry';
 import ThemeBaseline from '@/contexts/ThemeBaseline';
-import { PaletteMode } from '@mui/material';
 
 // Types
 export interface RootLayoutProps {
@@ -27,17 +26,14 @@ function readPrefersDarkCookie(): PaletteMode {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html>
-      <head />
       <body>
-        <StyleRegistry>
-          <CookiesProvider>
-            <ColorModeProvider defaultMode={readPrefersDarkCookie()}>
-              <ThemeBaseline>
-                { children }
-              </ThemeBaseline>
-            </ColorModeProvider>
-          </CookiesProvider>
-        </StyleRegistry>
+        <CookiesProvider>
+          <ColorModeProvider defaultMode={readPrefersDarkCookie()}>
+            <ThemeBaseline>
+              { children }
+            </ThemeBaseline>
+          </ColorModeProvider>
+        </CookiesProvider>
       </body>
     </html>
   );

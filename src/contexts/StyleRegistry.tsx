@@ -10,17 +10,6 @@ export interface StyleRegistryProps {
   children: ReactNode;
 }
 
-// Utils
-function each<T, R>(iterable: Iterable<T>, map: (val: T) => R): R[] {
-  const result: R[] = [];
-
-  for (const val of iterable) {
-    result.push(map(val));
-  }
-
-  return result;
-}
-
 // Component
 export default function StyleRegistry({ children }: StyleRegistryProps) {
   // Setup cache
@@ -50,20 +39,23 @@ export default function StyleRegistry({ children }: StyleRegistryProps) {
 
   // Inject styles
   useServerInsertedHTML(() => {
-    return (
-      <>
-        { each(flush(), (name) => {
-          const style = cache.inserted[name];
+    const names = flush();
 
-          return style === true ? null : (
-            <style
-              key={name}
-              data-emotion={`${cache.key} ${name}`}
-              dangerouslySetInnerHTML={{ __html: style }}
-            />
-          );
-        }) }
-      </>
+    if (names.size === 0) return null;
+
+    let key = cache.key;
+    let styles = '';
+
+    for (const name of names) {
+      key += ' ' + name;
+      styles += cache.inserted[name];
+    }
+
+    return (
+      <style
+        data-emotion={key}
+        dangerouslySetInnerHTML={{ __html: styles }}
+      />
     );
   });
 
