@@ -1,4 +1,4 @@
-import { BST } from '@/src/utils/bst';
+import { BST } from '@/utils/bst';
 
 // Prepare data
 const numbers = [1, 2, 2, 2, 4, 5];
