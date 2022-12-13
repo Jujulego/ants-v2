@@ -1,5 +1,8 @@
 import { ReactNode } from 'react';
 
+import StyleRegistry from '@/contexts/StyleRegistry';
+import ThemeBaseline from '@/contexts/ThemeBaseline';
+
 // Types
 export interface RootLayoutProps {
   children: ReactNode;
@@ -9,7 +12,14 @@ export interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html>
-      <body>{ children }</body>
+      <head />
+      <body>
+        <StyleRegistry>
+          <ThemeBaseline>
+            { children }
+          </ThemeBaseline>
+        </StyleRegistry>
+      </body>
     </html>
   );
 }
