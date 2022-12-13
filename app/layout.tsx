@@ -29,15 +29,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html>
       <head />
       <body>
-        <CookiesProvider>
-          <StyleRegistry>
+        <StyleRegistry>
+          <CookiesProvider>
             <ColorModeProvider defaultMode={readPrefersDarkCookie()}>
               <ThemeBaseline>
                 { children }
               </ThemeBaseline>
             </ColorModeProvider>
-          </StyleRegistry>
-        </CookiesProvider>
+          </CookiesProvider>
+        </StyleRegistry>
       </body>
     </html>
   );

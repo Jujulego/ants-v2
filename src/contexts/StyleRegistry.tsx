@@ -26,7 +26,6 @@ export default function StyleRegistry({ children }: StyleRegistryProps) {
   // Setup cache
   const { cache, flush } = useMemo(() => {
     const cache = createCache({ key: 'mui-style' });
-    cache.compat = true;
 
     const prevInserted = cache.insert;
     let inserted = new Set<string>();
