@@ -10,7 +10,7 @@ export default function HomePage() {
   const { toggleColorMode } = useContext(ColorModeContext);
 
   return (
-    <Grid container sx={{ '& > div:nth-of-type(even)': { background: 'red' } }}>
+    <Grid container>
       <Grid item xs={8}>
         <Typography variant="h1" p={2}>Hello world!</Typography>
       </Grid>

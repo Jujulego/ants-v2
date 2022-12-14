@@ -4,6 +4,8 @@ import { type PaletteMode, useMediaQuery } from '@mui/material';
 import { createContext, ReactNode, useCallback, useMemo } from 'react';
 import { useCookies } from 'react-cookie';
 
+import { useStabilizeMediaQuery } from '@/hooks/useStabilizeMediaQuery';
+
 // Types
 export interface ColorModeContextProps {
   prefersDarkMode: boolean;
@@ -26,10 +28,15 @@ export const ColorModeContext = createContext<ColorModeContextProps>({
 // Provider
 export default function ColorModeProvider({ children, defaultMode }: ColorModeProps) {
   const [cookie, setCookie] = useCookies(['prefers-dark']);
-  const system = useMediaQuery('(prefers-color-scheme: dark)', {
-    noSsr: true,
+
+  let system = useMediaQuery('(prefers-color-scheme: dark)', {
     defaultMatches: defaultMode === 'dark'
   });
+
+  if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    system = useStabilizeMediaQuery(system);
+  }
 
   // Memos
   const prefersDarkMode = useMemo(() => cookie['prefers-dark'] ? cookie['prefers-dark'] === 'dark' : system, [cookie, system]);
