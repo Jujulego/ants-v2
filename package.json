@@ -16,6 +16,7 @@
     "@emotion/styled": "11.10.5",
     "@mui/material": "5.11.0",
     "@next/font": "13.0.5",
+    "inversify": "6.0.1",
     "next": "13.0.6",
     "react": "18.2.0",
     "react-cookie": "4.1.1",
@@ -35,5 +36,10 @@
     "jest-environment-jsdom": "29.3.1",
     "typescript": "4.9.3"
   },
-  "packageManager": "yarn@3.3.0"
+  "packageManager": "yarn@3.3.0",
+  "dependenciesMeta": {
+    "next@13.0.6": {
+      "unplugged": true
+    }
+  }
 }
