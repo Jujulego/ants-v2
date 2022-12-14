@@ -1879,6 +1879,7 @@ __metadata:
     "@types/node": 18.11.13
     "@types/react": 18.0.26
     "@types/react-dom": 18.0.9
+    dexie: 3.2.2
     eslint: 8.29.0
     eslint-config-next: 13.0.6
     eslint-plugin-jest: 27.1.6
@@ -2680,6 +2681,13 @@ __metadata:
   version: 3.1.0
   resolution: "detect-newline@npm:3.1.0"
   checksum: ae6cd429c41ad01b164c59ea36f264a2c479598e61cba7c99da24175a7ab80ddf066420f2bec9a1c57a6bead411b4655ff15ad7d281c000a89791f48cbe939e7
+  languageName: node
+  linkType: hard
+
+"dexie@npm:3.2.2":
+  version: 3.2.2
+  resolution: "dexie@npm:3.2.2"
+  checksum: 7a21079f7ab139ebd724a009917f9293f2b01c341e2a3cd51d2455dda4d4e78b9ca7de0373e963108395cf1921ce7f6556cac967c1e957005a3c7c11794ceccf
   languageName: node
   linkType: hard
 

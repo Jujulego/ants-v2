@@ -17,6 +17,7 @@
     "@jujulego/2d-maths": "1.5.1",
     "@mui/material": "5.11.0",
     "@next/font": "13.0.5",
+    "dexie": "3.2.2",
     "inversify": "6.0.1",
     "next": "13.0.6",
     "react": "18.2.0",
