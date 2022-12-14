@@ -19,6 +19,8 @@
     "jsx": "preserve",
     "incremental": true,
     "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "baseUrl": "./",
     "paths": {
       "@/*": [
