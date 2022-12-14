@@ -9,7 +9,7 @@ import { IWorld } from './world';
  * Base for accessing world's data
  */
 @injectable()
-export abstract class WorldRepository {
+export abstract class WorldService {
   // Methods
   /**
    * Load all tiles within the given bounding box

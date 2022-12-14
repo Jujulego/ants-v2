@@ -4,14 +4,14 @@ import {  injectable } from 'inversify';
 
 import { ITile } from '@/world/tile';
 import { IWorld, parseWorld } from '@/world/world';
-import { WorldRepository } from '@/world/world.repository';
+import { WorldService } from '@/world/world.service';
 
 import { DexieDatabase, TILES_XY_INDEX } from './dexie';
 import { TileRepository } from './tile.repository';
 
 // Repository
 @injectable()
-export class WorldIdbRepository extends WorldRepository {
+export class WorldIdbService extends WorldService {
   // Constructor
   constructor(
     private readonly _database: DexieDatabase,

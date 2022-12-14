@@ -5,4 +5,5 @@ import 'reflect-metadata';
 // Container
 export const container = new Container({
   autoBindInjectable: true,
+  skipBaseClassChecks: true,
 });

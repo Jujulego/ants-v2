@@ -1,4 +1,4 @@
-const nextJest = require('next/jest');
+import nextJest from 'next/jest.js';
 
 const createJestConfig = nextJest({
   dir: './',
@@ -16,7 +16,15 @@ const customJestConfig = {
   moduleDirectories: ['node_modules', '<rootDir>/'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
-  }
+  },
+  transformIgnorePatterns: [
+    '/node_modules/(?!dexie)/',
+  ],
 };
 
-module.exports = createJestConfig(customJestConfig);
+export default async function jestConfig() {
+  const config = await createJestConfig(customJestConfig)();
+  config.transformIgnorePatterns = config.transformIgnorePatterns.filter((pat) => pat !== '/node_modules/');
+
+  return config;
+}
