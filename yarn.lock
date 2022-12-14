@@ -957,6 +957,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jujulego/2d-maths@npm:1.5.1":
+  version: 1.5.1
+  resolution: "@jujulego/2d-maths@npm:1.5.1"
+  checksum: 24b667a60c6c9bff77696e50a6ac22117405ee629b4ae1dbdeb891ec4e226b4bfc3a6ad1fd73523f8c825ee2293c6db0a09de9335a6267ef9443fc147b43f47a
+  languageName: node
+  linkType: hard
+
 "@mui/base@npm:5.0.0-alpha.110":
   version: 5.0.0-alpha.110
   resolution: "@mui/base@npm:5.0.0-alpha.110"
@@ -1863,6 +1870,7 @@ __metadata:
     "@emotion/react": 11.10.5
     "@emotion/server": 11.10.0
     "@emotion/styled": 11.10.5
+    "@jujulego/2d-maths": 1.5.1
     "@mui/material": 5.11.0
     "@next/font": 13.0.5
     "@testing-library/jest-dom": 5.16.5

@@ -14,6 +14,7 @@
     "@emotion/react": "11.10.5",
     "@emotion/server": "11.10.0",
     "@emotion/styled": "11.10.5",
+    "@jujulego/2d-maths": "1.5.1",
     "@mui/material": "5.11.0",
     "@next/font": "13.0.5",
     "inversify": "6.0.1",
