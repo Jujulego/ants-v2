@@ -12,20 +12,20 @@ import { IWorld } from './world';
 export abstract class WorldRepository {
   // Methods
   /**
+   * Load all tiles within the given bounding box
+   *
+   * @param world
+   * @param bbox
+   */
+  abstract loadTilesIn(world: string | IWorld, bbox: IRect): Promise<ITile[]>;
+
+  /**
    * Direct access to one tile
    *
    * @param world
    * @param pos
    */
   abstract getTile(world: string | IWorld, pos: IPoint): Promise<ITile>;
-
-  /**
-   * Load all tiles within the given bounding box
-   *
-   * @param world
-   * @param bbox
-   */
-  abstract getTilesIn(world: string | IWorld, bbox: IRect): Promise<ITile[]>;
 
   /**
    * Direct access to many tiles

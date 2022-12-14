@@ -10,6 +10,7 @@ const DATABASE_VERSION = 1;
 export const TILES_XY_INDEX = '[world+pos.x+pos.y]';
 
 // Types
+export type ITileKey = readonly [world: string, x: number, y: number];
 export interface ITileEntity extends ITile {
   readonly world: string;
   readonly history: string[];
@@ -19,7 +20,7 @@ export interface ITileEntity extends ITile {
 @injectable()
 export class DexieDatabase extends Dexie {
   // Attributes
-  tiles!: Dexie.Table<ITileEntity>;
+  tiles!: Dexie.Table<ITileEntity, ITileKey>;
 
   // Constructor
   constructor() {
