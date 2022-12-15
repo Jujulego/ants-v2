@@ -90,3 +90,33 @@ describe('TileRepository.get', () => {
       .rejects.toEqual(new Error('Tile toto:0,0 not found'));
   });
 });
+
+describe('TileRepository.bulkGet', () => {
+  it('should return latest version of all asked tiles', async () => {
+    await expect(repository.bulkGet({ world: 'test' }, [{ x: 0, y: 0 }, { x: 1, y: 2 }, { x: 0, y: -1 }]))
+      .resolves.toEqual([
+        {
+          pos: { x: 0, y: 0 },
+          biome: 'grass'
+        },
+        {
+          pos: { x: 1, y: 2 },
+          biome: 'grass'
+        },
+      ]);
+  });
+
+  it('should return version 0 of all asked tiles', async () => {
+    await expect(repository.bulkGet({ world: 'test', version: 0 }, [{ x: 0, y: 0 }, { x: 1, y: 2 }]))
+      .resolves.toEqual([
+        {
+          pos: { x: 0, y: 0 },
+          biome: 'sand'
+        },
+        {
+          pos: { x: 1, y: 2 },
+          biome: 'sand'
+        },
+      ]);
+  });
+});
