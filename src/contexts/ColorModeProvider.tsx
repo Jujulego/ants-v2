@@ -46,7 +46,7 @@ export default function ColorModeProvider({ children, defaultMode }: ColorModePr
   const toggleColorMode = useCallback(() => {
     setCookie('prefers-dark', colorMode === 'light' ? 'dark' : 'light', {
       path: '/',
-      sameSite: true,
+      sameSite: 'lax',
       maxAge: 2592000
     });
   }, [colorMode, setCookie]);

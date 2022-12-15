@@ -17,14 +17,6 @@ const customJestConfig = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
-  transformIgnorePatterns: [
-    '/node_modules/(?!dexie)/',
-  ],
 };
 
-export default async function jestConfig() {
-  const config = await createJestConfig(customJestConfig)();
-  config.transformIgnorePatterns = config.transformIgnorePatterns.filter((pat) => pat !== '/node_modules/');
-
-  return config;
-}
+export default createJestConfig(customJestConfig)();
