@@ -80,7 +80,7 @@ export class TileRepository {
 
   async put(world: IWorld, tile: ITile): Promise<void> {
     await this._database.transaction('rw', this.table, async () => {
-      let old = await this.table.get({ world, 'pos.x': tile.pos.x, 'pos.y': tile.pos.y });
+      let old = await this.table.get([world.world, tile.pos.x, tile.pos.y]);
 
       // Create item is missing
       old ??= {

@@ -8,6 +8,7 @@ import { TileRepository } from '@/world/idb/tile.repository';
 
 // Setup
 const TEST_AREA = rect({ t: 5, l: 0, r: 5, b: 0 });
+let database: DexieDatabase;
 let repository: TileRepository;
 
 beforeEach(async () => {
@@ -20,7 +21,7 @@ beforeEach(async () => {
   });
 
   // Get repository instance using injected indexeddb
-  const database = container.get(DexieDatabase);
+  database = container.get(DexieDatabase);
   repository = container.get(TileRepository);
 
   // Insert some data
@@ -118,5 +119,127 @@ describe('TileRepository.bulkGet', () => {
           biome: 'sand'
         },
       ]);
+  });
+});
+
+describe('TileRepository.put', () => {
+  it('should create a new version to given tile', async () => {
+    await repository.put({ world: 'test' }, {
+      pos: { x: 0, y: 0 },
+      biome: 'rock'
+    });
+
+    await expect(database.tiles.get(['test', 0, 0]))
+      .resolves.toEqual({
+        world: 'test',
+        pos: { x: 0, y: 0 },
+        biome: 'rock',
+        history: ['sand', 'grass', 'rock']
+      });
+  });
+
+  it('should update given version of given tile and remove next versions', async () => {
+    await repository.put({ world: 'test', version: 0 }, {
+      pos: { x: 0, y: 0 },
+      biome: 'rock'
+    });
+
+    await expect(database.tiles.get(['test', 0, 0]))
+      .resolves.toEqual({
+        world: 'test',
+        pos: { x: 0, y: 0 },
+        biome: 'rock',
+        history: ['rock']
+      });
+  });
+
+  it('should update latest version of given tile', async () => {
+    await repository.put({ world: 'test', version: 1 }, {
+      pos: { x: 0, y: 0 },
+      biome: 'rock'
+    });
+
+    await expect(database.tiles.get(['test', 0, 0]))
+      .resolves.toEqual({
+        world: 'test',
+        pos: { x: 0, y: 0 },
+        biome: 'rock',
+        history: ['sand', 'rock']
+      });
+  });
+
+  it('should create given version of given tile and all missing version', async () => {
+    await repository.put({ world: 'test', version: 4 }, {
+      pos: { x: 0, y: 0 },
+      biome: 'rock'
+    });
+
+    await expect(database.tiles.get(['test', 0, 0]))
+      .resolves.toEqual({
+        world: 'test',
+        pos: { x: 0, y: 0 },
+        biome: 'rock',
+        history: ['sand', 'grass', 'grass', 'grass', 'rock']
+      });
+  });
+});
+
+describe('TileRepository.bulkPut', () => {
+  it('should update all given tiles', async () => {
+    await repository.bulkPut({ world: 'test' }, [
+      {
+        pos: { x: 0, y: 0 },
+        biome: 'rock'
+      },
+      {
+        pos: { x: 1, y: 2 },
+        biome: 'rock'
+      }
+    ]);
+
+    await expect(database.tiles.get(['test', 0, 0]))
+      .resolves.toEqual({
+        world: 'test',
+        pos: { x: 0, y: 0 },
+        biome: 'rock',
+        history: ['sand', 'grass', 'rock']
+      });
+
+    await expect(database.tiles.get(['test', 1, 2]))
+      .resolves.toEqual({
+        world: 'test',
+        pos: { x: 1, y: 2 },
+        biome: 'rock',
+        history: ['sand', 'grass', 'rock']
+      });
+  });
+
+  it('should create all given tiles', async () => {
+    await repository.bulkPut({ world: 'test' }, [
+      {
+        pos: { x: -1, y: 0 },
+        biome: 'rock'
+      },
+      {
+        pos: { x: -1, y: 2 },
+        biome: 'rock'
+      }
+    ]);
+
+    await expect(database.tiles.get(['test', -1, 0]))
+      .resolves.toEqual({
+        world: 'test',
+        pos: { x: -1, y: 0 },
+        biome: 'rock',
+        history: ['rock']
+      });
+
+    await expect(database.tiles.get(['test', -1, 2]))
+      .resolves.toEqual({
+        world: 'test',
+        pos: { x: -1, y: 2 },
+        biome: 'rock',
+        history: ['rock']
+      });
   });
 });
