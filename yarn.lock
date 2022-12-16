@@ -964,6 +964,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jujulego/event-tree@npm:1.1.0":
+  version: 1.1.0
+  resolution: "@jujulego/event-tree@npm:1.1.0"
+  checksum: ff72181a20cccce2baa0b216388340e8134969279825471d4dbea21e995d5fc6d8c754786b40c221d9d9b9fd70834ea284f6dfb8c275d3cac68f5a716baafdd9
+  languageName: node
+  linkType: hard
+
 "@mui/base@npm:5.0.0-alpha.110":
   version: 5.0.0-alpha.110
   resolution: "@mui/base@npm:5.0.0-alpha.110"
@@ -1611,6 +1618,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/seedrandom@npm:3.0.2":
+  version: 3.0.2
+  resolution: "@types/seedrandom@npm:3.0.2"
+  checksum: 02e585601cb9764cb0eb3f92b384512f8e171422acea3d5a801a41a8a06d475b60ae520eba469bcedf0ed8ad650415919cf30a9cd6bc57090613e61bedc071ed
+  languageName: node
+  linkType: hard
+
 "@types/semver@npm:^7.3.12":
   version: 7.3.13
   resolution: "@types/semver@npm:7.3.13"
@@ -1878,6 +1892,7 @@ __metadata:
     "@emotion/server": 11.10.0
     "@emotion/styled": 11.10.5
     "@jujulego/2d-maths": 1.5.1
+    "@jujulego/event-tree": 1.1.0
     "@mui/material": 5.11.0
     "@next/font": 13.0.7
     "@testing-library/jest-dom": 5.16.5
@@ -1886,6 +1901,7 @@ __metadata:
     "@types/node": 18.11.15
     "@types/react": 18.0.26
     "@types/react-dom": 18.0.9
+    "@types/seedrandom": 3.0.2
     dexie: 3.2.2
     eslint: 8.29.0
     eslint-config-next: 13.0.7
@@ -1899,6 +1915,7 @@ __metadata:
     react-cookie: 4.1.1
     react-dom: 18.2.0
     reflect-metadata: 0.1.13
+    seedrandom: 3.0.5
     typescript: 4.9.3
   dependenciesMeta:
     next@13.0.7:
@@ -6210,6 +6227,13 @@ __metadata:
   dependencies:
     loose-envify: ^1.1.0
   checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
+  languageName: node
+  linkType: hard
+
+"seedrandom@npm:3.0.5":
+  version: 3.0.5
+  resolution: "seedrandom@npm:3.0.5"
+  checksum: 728b56bc3bc1b9ddeabd381e449b51cb31bdc0aa86e27fcd0190cea8c44613d5bcb2f6bb63ed79f78180cbe791c20b8ec31a9627f7b7fc7f476fd2bdb7e2da9f
   languageName: node
   linkType: hard
 
