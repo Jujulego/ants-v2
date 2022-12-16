@@ -11,7 +11,7 @@ import { TileRepository } from './tile.repository';
 
 // Repository
 @injectable()
-export class WorldIdbService extends WorldService {
+export class WorldWebService extends WorldService {
   // Constructor
   constructor(
     private readonly _database: DexieDatabase,

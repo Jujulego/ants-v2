@@ -3,8 +3,8 @@ import { DexieOptions } from 'dexie';
 import { IDBFactory, IDBKeyRange } from 'fake-indexeddb';
 
 import { container } from '@/inversify.config';
-import { DEXIE_OPTIONS, DexieDatabase, TILES_XY_INDEX } from '@/world/idb/dexie';
-import { TileRepository } from '@/world/idb/tile.repository';
+import { DEXIE_OPTIONS, DexieDatabase, TILES_XY_INDEX } from '@/world/web/dexie';
+import { TileRepository } from '@/world/web/tile.repository';
 
 // Setup
 const TEST_AREA = rect({ t: 5, l: 0, r: 5, b: 0 });

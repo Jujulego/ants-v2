@@ -1,6 +1,8 @@
 import { IPoint, IRect } from '@jujulego/2d-maths';
 import { injectable } from 'inversify';
 
+import { container } from '@/inversify.config';
+
 import { ITile } from './tile';
 import { IWorld } from './world';
 
@@ -57,3 +59,15 @@ export abstract class WorldService {
    */
   abstract clear(world: string): Promise<void>;
 }
+
+// Inject service
+const isBrowser = typeof document !== 'undefined';
+
+container.bind(WorldService).toDynamicValue(async () => {
+  if (isBrowser) {
+    const { WorldWebService } = await import('./web/world-web.service');
+    return container.get(WorldWebService);
+  } else {
+    throw new Error('WorldService not available on server side');
+  }
+});
