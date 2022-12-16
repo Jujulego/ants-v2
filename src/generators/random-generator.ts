@@ -7,6 +7,7 @@ import { ITile } from '@/world/tile';
 import { IWorld } from '@/world/world';
 
 import { TileGenerator, TileGeneratorOpts } from './tile-generator';
+import { WorldService } from '@/world/world.service';
 
 // Types
 export interface RandomGeneratorOpts extends TileGeneratorOpts {
@@ -19,6 +20,11 @@ type Cumulated = [biome: string, f: number];
 // Class
 @injectable()
 export class RandomGenerator extends TileGenerator<RandomGeneratorOpts> {
+  // Constructor
+  constructor(client: WorldService) {
+    super(client);
+  }
+
   // Methods
   private _cumulate(biomes: Record<string, number>): BST<Cumulated, number> {
     const cumulated: Cumulated[] = [];

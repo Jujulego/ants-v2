@@ -22,10 +22,9 @@ export type TileGeneratorEventMap = {
 }
 
 // Class
-@injectable()
 export abstract class TileGenerator<O extends TileGeneratorOpts> extends EventSource<TileGeneratorEventMap> {
   // Constructor
-  constructor(
+  protected constructor(
     protected readonly client: WorldService
   ) {
     super();

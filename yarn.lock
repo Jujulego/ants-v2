@@ -1903,6 +1903,7 @@ __metadata:
     "@types/react-dom": 18.0.9
     "@types/seedrandom": 3.0.2
     dexie: 3.2.2
+    dexie-react-hooks: 1.1.1
     eslint: 8.29.0
     eslint-config-next: 13.0.7
     eslint-plugin-jest: 27.1.7
@@ -2713,6 +2714,17 @@ __metadata:
   version: 3.1.0
   resolution: "detect-newline@npm:3.1.0"
   checksum: ae6cd429c41ad01b164c59ea36f264a2c479598e61cba7c99da24175a7ab80ddf066420f2bec9a1c57a6bead411b4655ff15ad7d281c000a89791f48cbe939e7
+  languageName: node
+  linkType: hard
+
+"dexie-react-hooks@npm:1.1.1":
+  version: 1.1.1
+  resolution: "dexie-react-hooks@npm:1.1.1"
+  peerDependencies:
+    "@types/react": ">=16"
+    dexie: ">=3.1.0-alpha.1 <5.0.0"
+    react: ">=16"
+  checksum: 09e1b1d4ebc248d103eb13c8f77733f4c140478350d2b8f3989af2fedb45e0d4ae7a07df9281ade162a3264ff621db35899b47d6edf5bf532ba22d571f6f1496
   languageName: node
   linkType: hard
 
