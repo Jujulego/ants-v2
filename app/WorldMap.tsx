@@ -2,7 +2,7 @@
 
 import { rect } from '@jujulego/2d-maths';
 import { NoSsr } from '@mui/material';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import { BiomeLayer } from '@/layers/BiomeLayer';
 import { container } from '@/inversify.config';
@@ -32,8 +32,10 @@ export default function WorldMap() {
 
   // Render
   return (
-    <NoSsr>
-      <BiomeLayer world={WORLD} area={AREA} />
-    </NoSsr>
+    <Suspense fallback={<p>Loading ...</p>}>
+      <NoSsr>
+        <BiomeLayer world={WORLD} area={AREA} />
+      </NoSsr>
+    </Suspense>
   );
 }

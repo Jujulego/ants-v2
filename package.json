@@ -14,6 +14,7 @@
     "@emotion/server": "11.10.0",
     "@emotion/styled": "11.10.5",
     "@jujulego/2d-maths": "1.5.1",
+    "@jujulego/aegis": "1.0.0-rc.8",
     "@jujulego/event-tree": "1.1.0",
     "@mui/material": "5.11.0",
     "@next/font": "13.0.6",

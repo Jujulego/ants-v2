@@ -964,7 +964,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jujulego/event-tree@npm:1.1.0":
+"@jujulego/aegis-core@npm:^1.0.0-rc.6":
+  version: 1.0.0-rc.6
+  resolution: "@jujulego/aegis-core@npm:1.0.0-rc.6"
+  dependencies:
+    "@jujulego/event-tree": 1.1.0
+  checksum: e2d89ad983fd9d0bca8621deecf7b079fcac1126fe1d3c26aa92692e6db6e5defd1294898ecd7bf8b4ca958e1143045298c6a53d4d2250f838775962c3f13d9d
+  languageName: node
+  linkType: hard
+
+"@jujulego/aegis@npm:1.0.0-rc.8":
+  version: 1.0.0-rc.8
+  resolution: "@jujulego/aegis@npm:1.0.0-rc.8"
+  dependencies:
+    "@jujulego/aegis-core": ^1.0.0-rc.6
+    "@jujulego/event-tree": ^1.1.0
+  checksum: 678edfaadf32f08a8be5bdf5eaf9ce3dadc1818d51e1ef96afe8b63ff1f7a5f906163c66332551619e836a4a236458d7f0615fb7b48b70c010fe9a0f5acaace5
+  languageName: node
+  linkType: hard
+
+"@jujulego/event-tree@npm:1.1.0, @jujulego/event-tree@npm:^1.1.0":
   version: 1.1.0
   resolution: "@jujulego/event-tree@npm:1.1.0"
   checksum: ff72181a20cccce2baa0b216388340e8134969279825471d4dbea21e995d5fc6d8c754786b40c221d9d9b9fd70834ea284f6dfb8c275d3cac68f5a716baafdd9
@@ -1892,6 +1911,7 @@ __metadata:
     "@emotion/server": 11.10.0
     "@emotion/styled": 11.10.5
     "@jujulego/2d-maths": 1.5.1
+    "@jujulego/aegis": 1.0.0-rc.8
     "@jujulego/event-tree": 1.1.0
     "@mui/material": 5.11.0
     "@next/font": 13.0.6

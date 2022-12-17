@@ -1,15 +1,17 @@
 'use client';
 
 import { IPoint, matrix, Rect } from '@jujulego/2d-maths';
+import { $queryfy } from '@jujulego/aegis';
 import { styled } from '@mui/material';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { FC, useMemo } from 'react';
 
 import { BiomeName, BIOMES } from '@/biomes';
+import { useQuery } from '@/hooks/useQuery';
 import { container } from '@/inversify.config';
 import { tileKey } from '@/world/tile';
-import { WorldWebService } from '@/world/web/world-web.service';
 import { IWorld } from '@/world/world';
+import { WorldService } from '@/world/world.service';
 
 // Types
 export interface BiomeLayerProps {
@@ -25,7 +27,7 @@ interface LayerProps {
   readonly s: number;
 }
 
-// Styles
+// Styled components
 const Tile = styled('img', { skipSx: true })<TileProps>(({ pos }) => ({
   height: '100%',
   width: '100%',
@@ -40,10 +42,13 @@ const Layer = styled('div', { skipSx: true })<LayerProps>((props) => ({
   gridAutoColumns: props.s,
 }));
 
+// Utils
+const $worldClient = $queryfy(container.getAsync(WorldService));
+
 // Components
 export const BiomeLayer: FC<BiomeLayerProps> = (props) => {
   // Load tiles
-  const worldClient = useMemo(() => container.get(WorldWebService), []);
+  const worldClient = useQuery($worldClient);
   const tiles = useLiveQuery(() => worldClient.loadTilesIn(props.world, props.area), [props.world, props.area, worldClient], []);
 
   // Memos
