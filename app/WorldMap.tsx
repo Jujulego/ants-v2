@@ -1,7 +1,7 @@
 'use client';
 
 import { rect } from '@jujulego/2d-maths';
-import { NoSsr } from '@mui/material';
+import { NoSsr, Skeleton } from '@mui/material';
 import { Suspense, useEffect } from 'react';
 
 import { BiomeLayer } from '@/layers/BiomeLayer';
@@ -32,7 +32,9 @@ export default function WorldMap() {
 
   // Render
   return (
-    <Suspense fallback={<p>Loading ...</p>}>
+    <Suspense
+      fallback={<Skeleton variant="rectangular" width={AREA.w * 32} height={AREA.h * 32} />}
+    >
       <NoSsr>
         <BiomeLayer world={WORLD} area={AREA} />
       </NoSsr>
