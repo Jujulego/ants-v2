@@ -1,9 +1,10 @@
-import { IPoint, Rect } from '@jujulego/2d-maths';
+import { type IPoint, Rect } from '@jujulego/2d-maths';
 import { Dexie } from 'dexie';
-import {  injectable } from 'inversify';
+import { injectable } from 'inversify';
 
-import { ITile } from '@/world/tile';
-import { IWorld, parseWorld } from '@/world/world';
+import { container } from '@/inversify.config';
+import { type ITile } from '@/world/tile';
+import { type IWorld, parseWorld } from '@/world/world';
 import { WorldService } from '@/world/world.service';
 
 import { DexieDatabase, TILES_XY_INDEX } from './dexie';
@@ -52,3 +53,6 @@ export class WorldWebService extends WorldService {
       .delete();
   }
 }
+
+// Inject
+container.bind(WorldWebService).toSelf().inSingletonScope();

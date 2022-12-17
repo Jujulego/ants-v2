@@ -14,12 +14,12 @@ const AREA = rect({ x: 0, y: 0 }, { dx: 40, dy: 20 });
 const SEED = 'tata';
 
 // Component
-export default function HomePage() {
+export default function WorldMap() {
   // Effects
   useEffect(() => void (async () => {
     const generator = await container.getAsync(RandomGenerator);
 
-    await generator.run(WORLD, {
+    await generator.run({ world: WORLD, version: 0 }, {
       shape: AREA,
       seed: SEED,
       biomes: {

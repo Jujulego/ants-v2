@@ -1,9 +1,8 @@
 import { Shape } from '@jujulego/2d-maths';
 import { EventSource } from '@jujulego/event-tree';
-import { injectable } from 'inversify';
 
-import { ITile } from '@/world/tile';
-import { IWorld, parseWorld } from '@/world/world';
+import { type ITile } from '@/world/tile';
+import { type IWorld, parseWorld } from '@/world/world';
 import { WorldService } from '@/world/world.service';
 
 // Types

@@ -1,7 +1,8 @@
 import { Dexie, type DexieOptions } from 'dexie';
 import { inject, injectable, optional } from 'inversify';
 
-import { ITile } from '@/world/tile';
+import { container } from '@/inversify.config';
+import { type ITile } from '@/world/tile';
 
 // Constants
 const DATABASE_NAME = 'ants-v2';
@@ -37,3 +38,6 @@ export class DexieDatabase extends Dexie {
       });
   }
 }
+
+// Inject
+container.bind(DexieDatabase).toSelf().inSingletonScope();

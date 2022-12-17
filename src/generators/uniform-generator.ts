@@ -1,11 +1,12 @@
 import { pointsOf } from '@jujulego/2d-maths';
 import { injectable } from 'inversify';
 
-import { ITile } from '@/world/tile';
-import { IWorld } from '@/world/world';
+import { container } from '@/inversify.config';
+import { type ITile } from '@/world/tile';
+import { type IWorld } from '@/world/world';
+import { WorldService } from '@/world/world.service';
 
 import { TileGenerator, TileGeneratorOpts } from './tile-generator';
-import { WorldService } from '@/world/world.service';
 
 // Types
 export interface UniformGeneratorOpts extends TileGeneratorOpts {
@@ -30,3 +31,6 @@ export class UniformGenerator extends TileGenerator<UniformGeneratorOpts> {
     }
   }
 }
+
+// Inject
+container.bind(UniformGenerator).toSelf().inRequestScope();

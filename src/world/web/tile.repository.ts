@@ -1,9 +1,10 @@
-import { IPoint } from '@jujulego/2d-maths';
+import { type IPoint } from '@jujulego/2d-maths';
 import { Dexie } from 'dexie';
 import { injectable } from 'inversify';
 
-import { ITile, tileKey } from '@/world/tile';
-import { IWorld } from '@/world/world';
+import { container } from '@/inversify.config';
+import { type ITile, tileKey } from '@/world/tile';
+import { type IWorld } from '@/world/world';
 
 import { DexieDatabase, type ITileEntity, ITileKey, TILES_XY_INDEX } from './dexie';
 
@@ -137,3 +138,6 @@ export class TileRepository {
     return this._database.tiles;
   }
 }
+
+// Inject
+container.bind(TileRepository).toSelf().inSingletonScope();

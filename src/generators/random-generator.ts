@@ -2,12 +2,13 @@ import { pointsOf } from '@jujulego/2d-maths';
 import { injectable } from 'inversify';
 import seedrandom from 'seedrandom';
 
+import { container } from '@/inversify.config';
 import { BST } from '@/utils/bst';
-import { ITile } from '@/world/tile';
-import { IWorld } from '@/world/world';
+import { type ITile } from '@/world/tile';
+import { type IWorld } from '@/world/world';
+import { WorldService } from '@/world/world.service';
 
 import { TileGenerator, TileGeneratorOpts } from './tile-generator';
-import { WorldService } from '@/world/world.service';
 
 // Types
 export interface RandomGeneratorOpts extends TileGeneratorOpts {
@@ -67,3 +68,6 @@ export class RandomGenerator extends TileGenerator<RandomGeneratorOpts> {
     }
   }
 }
+
+// Inject
+container.bind(RandomGenerator).toSelf().inRequestScope();

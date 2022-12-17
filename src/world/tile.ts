@@ -1,4 +1,4 @@
-import { IPoint } from '@jujulego/2d-maths';
+import { type IPoint } from '@jujulego/2d-maths';
 
 // Interface
 /**

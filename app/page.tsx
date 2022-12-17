@@ -1,8 +1,8 @@
-import HomePage from './HomePage';
+import WorldMap from './WorldMap';
 
 // Page
 export default async function Page() {
   return (
-    <HomePage />
+    <WorldMap />
   );
 }

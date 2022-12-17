@@ -1,4 +1,4 @@
-import { IBiome } from '../biome';
+import { type IBiome } from '../biome';
 
 // Biome
 const grass: IBiome<'water'> = {

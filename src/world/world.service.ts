@@ -1,10 +1,10 @@
-import { IPoint, IRect } from '@jujulego/2d-maths';
+import { type IPoint, type IRect } from '@jujulego/2d-maths';
 import { injectable } from 'inversify';
 
 import { container } from '@/inversify.config';
 
-import { ITile } from './tile';
-import { IWorld } from './world';
+import { type ITile } from './tile';
+import { type IWorld } from './world';
 
 // Class
 /**
@@ -60,7 +60,7 @@ export abstract class WorldService {
   abstract clear(world: string): Promise<void>;
 }
 
-// Inject service
+// Inject
 const isBrowser = typeof document !== 'undefined';
 
 container.bind(WorldService).toDynamicValue(async () => {
