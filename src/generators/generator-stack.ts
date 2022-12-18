@@ -6,10 +6,12 @@ import { type ITile } from '@/world/tile';
 import { WorldService } from '@/world/world.service';
 
 import { TileGenerator, TileGeneratorOptions, type TileGeneratorType } from './tile-generator';
+import { RandomGenerator } from './random-generator';
 import { UniformGenerator } from './uniform-generator';
 
 // Constants
 const GENERATORS = {
+  'random': RandomGenerator,
   'uniform': UniformGenerator,
 };// satisfies Record<string, TileGeneratorType>;
 
@@ -50,7 +52,7 @@ export class GeneratorStack {
       env.bind(TileGeneratorOptions).toConstantValue(step.options);
 
       // Create generator
-      const generator = env.resolve(GENERATORS[step.generator]);
+      const generator = env.resolve<TileGenerator>(GENERATORS[step.generator]);
       this._generators.push(generator);
     }
 

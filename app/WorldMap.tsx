@@ -21,9 +21,14 @@ export default function WorldMap() {
 
     generator.setup([
       {
-        generator: 'uniform',
+        generator: 'random',
         options: {
-           biome: 'water'
+          seed: SEED,
+          biomes: {
+            water: 0.3,
+            grass: 0.4,
+            sand: 0.3,
+          }
         }
       }
     ]);
@@ -34,16 +39,6 @@ export default function WorldMap() {
 
     const duration = performance.measure('generation-duration', 'generation-start', 'generation-end');
     console.info(`generation took ${duration.duration}ms`);
-
-    // await generator.run({ world: WORLD, version: 0 }, {
-    //   shape: AREA,
-    //   seed: SEED,
-    //   biomes: {
-    //     water: 0.3,
-    //     grass: 0.4,
-    //     sand: 0.3,
-    //   }
-    // });
   })(), []);
 
   // Render

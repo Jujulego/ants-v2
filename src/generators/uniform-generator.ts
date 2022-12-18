@@ -4,7 +4,7 @@ import { TileGenerator } from './tile-generator';
 
 // Types
 export interface UniformGeneratorOpts {
-  biome: string;
+  readonly biome: string;
 }
 
 // Class
