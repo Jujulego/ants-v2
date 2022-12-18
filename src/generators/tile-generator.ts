@@ -1,78 +1,22 @@
-import { Shape } from '@jujulego/2d-maths';
-import { EventSource } from '@jujulego/event-tree';
+import { Point } from '@jujulego/2d-maths';
+import { inject, injectable } from 'inversify';
 
-import { type ITile } from '@/world/tile';
-import { type IWorld, parseWorld } from '@/world/world';
-import { WorldService } from '@/world/world.service';
+// Constant
+export const TileGeneratorOptions = Symbol('ants-v2:TileGeneratorOptions');
 
 // Types
-export interface TileGeneratorOpts {
-  readonly shape: Shape;
-  readonly chunkSize?: number;
+export interface TileGeneratorType<Opts = unknown> {
+  new (...args: any[]): TileGenerator<Opts>;
 }
 
-export interface GeneratorProgressEvent {
-  readonly count: number;
-  readonly progress: number;
-}
-
-export type TileGeneratorEventMap = {
-  progress: GeneratorProgressEvent;
-}
-
-// Class
-export abstract class TileGenerator<O extends TileGeneratorOpts> extends EventSource<TileGeneratorEventMap> {
+// Generator
+@injectable()
+export abstract class TileGenerator<Opts = unknown> {
   // Constructor
-  protected constructor(
-    protected readonly client: WorldService
-  ) {
-    super();
-  }
+  constructor(
+    @inject(TileGeneratorOptions) protected readonly _options: Opts,
+  ) {}
 
   // Methods
-  protected abstract generate(world: IWorld, opts: O): Generator<ITile | null>;
-
-  async run(world: string | IWorld, opts: O): Promise<void> {
-    world = parseWorld(world);
-
-    const { chunkSize = 1000 } = opts;
-    const size = opts.shape.bbox.size;
-    const step = Math.ceil(Math.min(chunkSize, size.dx * size.dy) / 10);
-
-    let chunk: ITile[] = [];
-    let count = 0;
-
-    for await (const tile of this.generate(world, opts)) {
-      // Progress events
-      count++;
-
-      if (count % step === 0) {
-        this.emit('progress', {
-          count,
-          progress: count / (size.dx * size.dy),
-        });
-      }
-
-      // Update
-      if (tile) {
-        chunk.push(tile);
-
-        if (chunk.length >= chunkSize) {
-          await this.client.bulkPutTile(world, chunk);
-          chunk = [];
-        }
-      }
-    }
-
-    if (chunk.length > 0) {
-      await this.client.bulkPutTile(world, chunk);
-    }
-
-    if (count % step !== 0) {
-      this.emit('progress', {
-        count,
-        progress: count / (size.dx * size.dy),
-      });
-    }
-  }
+  abstract generate(pos: Point): string;
 }

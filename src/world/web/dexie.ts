@@ -1,5 +1,5 @@
 import { Dexie, type DexieOptions } from 'dexie';
-import { inject, injectable, interfaces, optional } from 'inversify';
+import { decorate, inject, injectable, interfaces, optional, unmanaged } from 'inversify';
 
 import { container } from '@/inversify.config';
 import { type ITile } from '@/world/tile';
@@ -42,4 +42,8 @@ export class DexieDatabase extends Dexie {
 }
 
 // Inject
+decorate(injectable(), Dexie);
+decorate(unmanaged(), Dexie, 0);
+decorate(unmanaged(), Dexie, 1);
+
 container.bind(DexieDatabase).toSelf().inSingletonScope();
