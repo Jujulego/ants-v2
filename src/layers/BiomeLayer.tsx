@@ -10,12 +10,11 @@ import { BiomeName, BIOMES } from '@/biomes';
 import { useQuery } from '@/hooks/useQuery';
 import { container } from '@/inversify.config';
 import { tileKey } from '@/world/tile';
-import { IWorld } from '@/world/world';
 import { WorldService } from '@/world/world.service';
 
 // Types
 export interface BiomeLayerProps {
-  readonly world: string | IWorld;
+  readonly world: string;
   readonly area: Rect;
 }
 

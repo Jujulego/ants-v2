@@ -1,14 +1,12 @@
-import { type IPoint, Rect } from '@jujulego/2d-maths';
+import { type IPoint, Shape } from '@jujulego/2d-maths';
 import { Dexie } from 'dexie';
 import { injectable } from 'inversify';
 
 import { container } from '@/inversify.config';
 import { type ITile } from '@/world/tile';
-import { type IWorld, parseWorld } from '@/world/world';
 import { WorldService } from '@/world/world.service';
 
 import { DexieDatabase, TILES_XY_INDEX } from './dexie';
-import { TileRepository } from './tile.repository';
 
 // Repository
 @injectable()
@@ -16,41 +14,51 @@ export class WorldWebService extends WorldService {
   // Constructor
   constructor(
     private readonly _database: DexieDatabase,
-    private readonly _tiles: TileRepository,
   ) {
     super();
   }
 
   // Methods
-  override loadTilesIn(world: string | IWorld, bbox: Rect): Promise<ITile[]> {
-    const w = parseWorld(world);
-
-    return this._tiles.load(w, this._tiles.table
-      .where(TILES_XY_INDEX).between([w.world, bbox.l, bbox.b], [w.world, bbox.r, bbox.t])
-      .filter((tile) => bbox.contains(tile.pos))
-    );
+  override loadTilesIn(world: string, shape: Shape): Promise<ITile[]> {
+    return this.tiles
+      .where(TILES_XY_INDEX).between([world, shape.bbox.l, shape.bbox.b], [world, shape.bbox.r, shape.bbox.t])
+      .filter((tile) => shape.contains(tile.pos))
+      .toArray();
   }
 
-  override getTile(world: string | IWorld, pos: IPoint): Promise<ITile> {
-    return this._tiles.get(parseWorld(world), pos);
+  override async getTile(world: string, pos: IPoint): Promise<ITile> {
+    const tile = await this.tiles.get([world, pos.x, pos.y]);
+
+    if (!tile) {
+      throw new Error(`Tile ${world}:${pos.x},${pos.y} not found`);
+    }
+
+    return tile;
   }
 
-  override bulkGetTile(world: string | IWorld, pos: IPoint[]): Promise<ITile[]> {
-    return this._tiles.bulkGet(parseWorld(world), pos);
+  override bulkGetTile(world: string, pos: IPoint[]): Promise<ITile[]> {
+    return this.tiles
+      .where(TILES_XY_INDEX).anyOf(pos.map((pt) => [world, pt.x, pt.y]))
+      .toArray();
   }
 
-  override putTile(world: string | IWorld, tile: ITile): Promise<void> {
-    return this._tiles.put(parseWorld(world), tile);
+  override async putTile(world: string, tile: ITile): Promise<void> {
+    await this.tiles.put({ ...tile, world });
   }
 
-  override bulkPutTile(world: string | IWorld, tiles: ITile[]): Promise<void> {
-    return this._tiles.bulkPut(parseWorld(world), tiles);
+  override async bulkPutTile(world: string, tiles: ITile[]): Promise<void> {
+    await this.tiles.bulkPut(tiles.map((tile) => ({ ...tile, world })));
   }
 
   async clear(world: string): Promise<void>{
-    await this._tiles.table
+    await this.tiles
       .where(TILES_XY_INDEX).between([world, Dexie.minKey, Dexie.minKey], [world, Dexie.maxKey, Dexie.maxKey])
       .delete();
+  }
+
+  // Properties
+  get tiles() {
+    return this._database.tiles;
   }
 }
 

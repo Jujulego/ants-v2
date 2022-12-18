@@ -16,19 +16,19 @@ const SEED = 'tata';
 // Component
 export default function WorldMap() {
   // Effects
-  useEffect(() => void (async () => {
-    const generator = await container.getAsync(RandomGenerator);
-
-    await generator.run({ world: WORLD, version: 0 }, {
-      shape: AREA,
-      seed: SEED,
-      biomes: {
-        water: 0.3,
-        grass: 0.4,
-        sand: 0.3,
-      }
-    });
-  })(), []);
+  // useEffect(() => void (async () => {
+  //   const generator = await container.getAsync(RandomGenerator);
+  //
+  //   await generator.run({ world: WORLD, version: 0 }, {
+  //     shape: AREA,
+  //     seed: SEED,
+  //     biomes: {
+  //       water: 0.3,
+  //       grass: 0.4,
+  //       sand: 0.3,
+  //     }
+  //   });
+  // })(), []);
 
   // Render
   return (

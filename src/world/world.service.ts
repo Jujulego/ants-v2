@@ -1,10 +1,9 @@
-import { type IPoint, type IRect } from '@jujulego/2d-maths';
+import { type IPoint, Shape } from '@jujulego/2d-maths';
 import { injectable } from 'inversify';
 
 import { container } from '@/inversify.config';
 
 import { type ITile } from './tile';
-import { type IWorld } from './world';
 
 // Class
 /**
@@ -17,9 +16,9 @@ export abstract class WorldService {
    * Load all tiles within the given bounding box
    *
    * @param world
-   * @param bbox
+   * @param shape
    */
-  abstract loadTilesIn(world: string | IWorld, bbox: IRect): Promise<ITile[]>;
+  abstract loadTilesIn(world: string, shape: Shape): Promise<ITile[]>;
 
   /**
    * Direct access to one tile
@@ -27,7 +26,7 @@ export abstract class WorldService {
    * @param world
    * @param pos
    */
-  abstract getTile(world: string | IWorld, pos: IPoint): Promise<ITile>;
+  abstract getTile(world: string, pos: IPoint): Promise<ITile>;
 
   /**
    * Direct access to many tiles
@@ -35,7 +34,7 @@ export abstract class WorldService {
    * @param world
    * @param pos
    */
-  abstract bulkGetTile(world: string | IWorld, pos: IPoint[]): Promise<ITile[]>;
+  abstract bulkGetTile(world: string, pos: IPoint[]): Promise<ITile[]>;
 
   /**
    * Store the tile
@@ -43,7 +42,7 @@ export abstract class WorldService {
    * @param world
    * @param tile
    */
-  abstract putTile(world: string | IWorld, tile: ITile): Promise<void>;
+  abstract putTile(world: string, tile: ITile): Promise<void>;
 
   /**
    * Store all the tiles in one request
@@ -51,7 +50,7 @@ export abstract class WorldService {
    * @param world
    * @param tiles
    */
-  abstract bulkPutTile(world: string | IWorld, tiles: ITile[]): Promise<void>;
+  abstract bulkPutTile(world: string, tiles: ITile[]): Promise<void>;
 
 
   /**

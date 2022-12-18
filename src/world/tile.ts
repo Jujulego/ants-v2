@@ -14,6 +14,11 @@ export interface ITile {
    * Environment kind in the tile
    */
   readonly biome: string;
+
+  /**
+   * Each step produced when generating this tile
+   */
+  readonly generationSteps: readonly string[];
 }
 
 // Utils
