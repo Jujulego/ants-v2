@@ -5,10 +5,10 @@ import { container } from '@/inversify.config';
 import { type ITile } from '@/world/tile';
 import { WorldService } from '@/world/world.service';
 
-import { TileGenerator, TileGeneratorOptions, type TileGeneratorType } from './tile.generator';
+import { TileGenerator, TileGeneratorOptions, TileGeneratorPrevious, type TileGeneratorType } from './tile.generator';
 import { RandomGenerator } from './random.generator';
 import { UniformGenerator } from './uniform.generator';
-import { WorldStackService } from '@/generators/world-stack.service';
+import { WorldStackService } from './world-stack.service';
 
 // Constants
 const GENERATORS = {
@@ -31,8 +31,7 @@ export interface GeneratorStackStep<K extends TileGeneratorKey = TileGeneratorKe
 @injectable()
 export class GeneratorStack {
   // Attributes
-  private _initiated = false;
-  private _generators: TileGenerator[] = [];
+  private _generator?: TileGenerator;
 
   // Constructor
   constructor(
@@ -41,7 +40,7 @@ export class GeneratorStack {
 
   // Methods
   setup(steps: GeneratorStackStep[]): void {
-    if (this._initiated) {
+    if (this._generator) {
       console.warn('Stack already initiated');
       return;
     }
@@ -50,45 +49,26 @@ export class GeneratorStack {
       // Create generator ioc environment
       const env = container.createChild();
 
-      env.bind(WorldService).toConstantValue(new WorldStackService(this._generators[this._generators.length - 1]));
       env.bind(TileGeneratorOptions).toConstantValue(step.options);
+      env.bind(TileGeneratorPrevious).toConstantValue(this._generator);
+      env.bind(WorldService).toConstantValue(new WorldStackService(this._generator));
 
       // Create generator
-      const generator = env.resolve<TileGenerator>(GENERATORS[step.generator]);
-      this._generators.push(generator);
+      this._generator = env.resolve<TileGenerator>(GENERATORS[step.generator]);
     }
-
-    this._initiated = true;
-  }
-
-  private _generateTile(pos: Point): ITile {
-    // Generation
-    const steps: string[] = [];
-
-    for (const generator of this._generators) {
-      const res = generator.generate(pos);
-      steps.push(res);
-    }
-
-    // Store
-    return {
-      pos,
-      biome: steps[steps.length - 1],
-      generationSteps: steps,
-    };
   }
 
   async generateTile(world: string, pos: Point): Promise<void> {
-    if (!this._initiated) {
+    if (!this._generator) {
       throw new Error('Stack not yet initiated');
     }
 
-    const tile = this._generateTile(pos);
+    const tile = await this._generator.generate(world, pos);
     await this._world.putTile(world, tile);
   }
 
   async generateTilesIn(world: string, shape: Shape, chunkSize = 1000): Promise<void> {
-    if (!this._initiated) {
+    if (!this._generator) {
       throw new Error('Stack not yet initiated');
     }
 
@@ -96,7 +76,7 @@ export class GeneratorStack {
     let chunk: ITile[] = [];
 
     for (const pos of pointsOf(shape)) {
-      chunk.push(this._generateTile(pos));
+      chunk.push(await this._generator.generate(world, pos));
 
       if (chunk.length >= chunkSize) {
         await this._world.bulkPutTile(world, chunk);

@@ -1,6 +1,6 @@
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 
-import { TileGenerator } from './tile.generator';
+import { TileGenerator, TileGeneratorOptions } from './tile.generator';
 
 // Types
 export interface UniformGeneratorOpts {
@@ -10,8 +10,16 @@ export interface UniformGeneratorOpts {
 // Class
 @injectable()
 export class UniformGenerator extends TileGenerator<UniformGeneratorOpts> {
+  // Constructor
+  constructor(
+    @inject(TileGeneratorOptions)
+    private readonly _options: UniformGeneratorOpts,
+  ) {
+    super();
+  }
+
   // Methods
-  generate(): string {
+  protected applyOn(): string {
     return this._options.biome;
   }
 }

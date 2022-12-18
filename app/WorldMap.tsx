@@ -1,12 +1,12 @@
 'use client';
 
-import { pointsOf, rect } from '@jujulego/2d-maths';
+import { rect } from '@jujulego/2d-maths';
 import { NoSsr, Skeleton } from '@mui/material';
 import { Suspense, useEffect } from 'react';
 
 import { BiomeLayer } from '@/layers/BiomeLayer';
-import { container } from '@/inversify.config';
 import { GeneratorStack } from '@/generators/generator-stack';
+import { container } from '@/inversify.config';
 
 // Setup
 const WORLD = 'test';

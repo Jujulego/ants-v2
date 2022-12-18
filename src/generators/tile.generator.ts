@@ -1,8 +1,11 @@
 import { Point } from '@jujulego/2d-maths';
 import { inject, injectable } from 'inversify';
 
+import { ITile } from '@/world/tile';
+
 // Constant
 export const TileGeneratorOptions = Symbol('ants-v2:TileGeneratorOptions');
+export const TileGeneratorPrevious = Symbol('ants-v2:TileGeneratorPrevious');
 
 // Types
 export interface TileGeneratorType<Opts = unknown> {
@@ -12,11 +15,26 @@ export interface TileGeneratorType<Opts = unknown> {
 // Generator
 @injectable()
 export abstract class TileGenerator<Opts = unknown> {
-  // Constructor
-  constructor(
-    @inject(TileGeneratorOptions) protected readonly _options: Opts,
-  ) {}
+  // Attributes
+  private readonly __options?: Opts;
+
+  @inject(TileGeneratorPrevious)
+  private readonly _previous?: TileGenerator;
 
   // Methods
-  abstract generate(pos: Point): string;
+  protected abstract applyOn(pos: Point, base?: ITile): string;
+
+  async generate(world: string, pos: Point): Promise<ITile> {
+    const base = await this._previous?.generate(world, pos);
+    const biome = this.applyOn(pos, base);
+
+    // Build tile
+    const steps = base?.generationSteps ?? [];
+
+    return {
+      pos,
+      biome,
+      generationSteps: [...steps, biome]
+    };
+  }
 }

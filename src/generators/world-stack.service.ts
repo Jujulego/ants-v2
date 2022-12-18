@@ -29,11 +29,7 @@ export class WorldStackService extends WorldService {
       throw new Error('Cannot fetch tile using WorldStackService on first step');
     }
 
-    return {
-      pos,
-      biome: this._generator.generate(point(pos)),
-      generationSteps: [], // TODO: build steps somehow
-    };
+    return await this._generator.generate(world, point(pos));
   }
 
   override async bulkGetTile(world: string, points: IPoint[]): Promise<ITile[]> {
