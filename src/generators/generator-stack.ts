@@ -5,9 +5,10 @@ import { container } from '@/inversify.config';
 import { type ITile } from '@/world/tile';
 import { WorldService } from '@/world/world.service';
 
-import { TileGenerator, TileGeneratorOptions, type TileGeneratorType } from './tile-generator';
-import { RandomGenerator } from './random-generator';
-import { UniformGenerator } from './uniform-generator';
+import { TileGenerator, TileGeneratorOptions, type TileGeneratorType } from './tile.generator';
+import { RandomGenerator } from './random.generator';
+import { UniformGenerator } from './uniform.generator';
+import { WorldStackService } from '@/generators/world-stack.service';
 
 // Constants
 const GENERATORS = {
@@ -49,6 +50,7 @@ export class GeneratorStack {
       // Create generator ioc environment
       const env = container.createChild();
 
+      env.bind(WorldService).toConstantValue(new WorldStackService(this._generators[this._generators.length - 1]));
       env.bind(TileGeneratorOptions).toConstantValue(step.options);
 
       // Create generator

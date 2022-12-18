@@ -4,12 +4,12 @@ import seedrandom from 'seedrandom';
 
 import { BST } from '@/utils/bst';
 
-import { TileGenerator, TileGeneratorOptions } from './tile-generator';
+import { TileGenerator, TileGeneratorOptions } from './tile.generator';
 
 // Types
 export interface RandomGeneratorOpts {
+  readonly seed: string;
   readonly biomes: Record<string, number>;
-  readonly seed?: string;
 }
 
 type Cumulated = [biome: string, f: number];

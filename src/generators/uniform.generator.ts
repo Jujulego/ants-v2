@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 
-import { TileGenerator } from './tile-generator';
+import { TileGenerator } from './tile.generator';
 
 // Types
 export interface UniformGeneratorOpts {
