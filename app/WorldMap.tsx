@@ -10,7 +10,7 @@ import { container } from '@/inversify.config';
 
 // Setup
 const WORLD = 'test';
-const AREA = rect({ x: 0, y: 0 }, { dx: 40, dy: 20 });
+const AREA = rect({ x: -1, y: -1 }, { dx: 42, dy: 22 });
 const SEED = 'tata';
 
 // Component
@@ -21,7 +21,14 @@ export default function WorldMap() {
 
     generator.setup([
       {
+        generator: 'uniform',
+        options: {
+          biome: 'water',
+        }
+      },
+      {
         generator: 'random',
+        limit: rect({ x: 0, y: 0 }, { dx: 40, dy: 20 }),
         options: {
           seed: SEED,
           biomes: {

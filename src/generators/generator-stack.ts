@@ -5,7 +5,13 @@ import { container } from '@/inversify.config';
 import { type ITile } from '@/world/tile';
 import { WorldService } from '@/world/world.service';
 
-import { TileGenerator, TileGeneratorOptions, TileGeneratorPrevious, type TileGeneratorType } from './tile.generator';
+import {
+  TileGenerator,
+  TileGeneratorLimit,
+  TileGeneratorOptions,
+  TileGeneratorPrevious,
+  type TileGeneratorType
+} from './tile.generator';
 import { RandomGenerator } from './random.generator';
 import { UniformGenerator } from './uniform.generator';
 import { WorldStackService } from './world-stack.service';
@@ -24,6 +30,7 @@ type TileGeneratorOptionMap = {
 
 export interface GeneratorStackStep<K extends TileGeneratorKey = TileGeneratorKey> {
   readonly generator: K;
+  readonly limit?: Shape;
   readonly options: TileGeneratorOptionMap[K];
 }
 
@@ -49,6 +56,7 @@ export class GeneratorStack {
       // Create generator ioc environment
       const env = container.createChild();
 
+      env.bind(TileGeneratorLimit).toConstantValue(step.limit);
       env.bind(TileGeneratorOptions).toConstantValue(step.options);
       env.bind(TileGeneratorPrevious).toConstantValue(this._generator);
       env.bind(WorldService).toConstantValue(new WorldStackService(this._generator));
@@ -64,7 +72,10 @@ export class GeneratorStack {
     }
 
     const tile = await this._generator.generate(world, pos);
-    await this._world.putTile(world, tile);
+
+    if (tile) {
+      await this._world.putTile(world, tile);
+    }
   }
 
   async generateTilesIn(world: string, shape: Shape, chunkSize = 1000): Promise<void> {
@@ -76,11 +87,15 @@ export class GeneratorStack {
     let chunk: ITile[] = [];
 
     for (const pos of pointsOf(shape)) {
-      chunk.push(await this._generator.generate(world, pos));
+      const tile = await this._generator.generate(world, pos);
 
-      if (chunk.length >= chunkSize) {
-        await this._world.bulkPutTile(world, chunk);
-        chunk = [];
+      if (tile) {
+        chunk.push(tile);
+
+        if (chunk.length >= chunkSize) {
+          await this._world.bulkPutTile(world, chunk);
+          chunk = [];
+        }
       }
     }
 
