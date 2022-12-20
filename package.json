@@ -16,7 +16,7 @@
     "@jujulego/2d-maths": "1.5.1",
     "@jujulego/aegis": "1.0.0-rc.8",
     "@jujulego/event-tree": "1.1.0",
-    "@mui/material": "5.11.0",
+    "@mui/material": "5.11.1",
     "@next/font": "13.0.6",
     "dexie": "3.2.2",
     "dexie-react-hooks": "1.1.1",
