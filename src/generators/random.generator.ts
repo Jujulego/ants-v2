@@ -22,12 +22,11 @@ export class RandomGenerator extends TileGenerator<RandomGeneratorOpts> {
 
   // Constructor
   constructor(
-    @inject(TileGeneratorOptions)
-    private readonly _options: RandomGeneratorOpts,
+    @inject(TileGeneratorOptions) options: RandomGeneratorOpts,
   ) {
     super();
 
-    this._biomes = this._cumulate(_options.biomes);
+    this._biomes = this._cumulate(options.biomes);
   }
 
   // Methods
@@ -55,7 +54,7 @@ export class RandomGenerator extends TileGenerator<RandomGeneratorOpts> {
   }
 
   protected applyOn(pos: Point): string {
-    const prng = seedrandom(`${this._options.seed}-${pos.x}-${pos.y}`);
+    const prng = seedrandom(`${this.options.seed}-${pos.x}-${pos.y}`);
     const res = this._biomes.nearest(prng.quick(), 'lte')!;
 
     return res[0];

@@ -1929,6 +1929,7 @@ __metadata:
     eslint-plugin-jest: 27.1.7
     fake-indexeddb: 4.0.1
     inversify: 6.0.1
+    inversify-inject-decorators: 3.1.0
     jest: 29.3.1
     jest-environment-jsdom: 29.3.1
     next: 13.0.6
@@ -4022,6 +4023,13 @@ __metadata:
     has: ^1.0.3
     side-channel: ^1.0.4
   checksum: 1944f92e981e47aebc98a88ff0db579fd90543d937806104d0b96557b10c1f170c51fb777b97740a8b6ddeec585fca8c39ae99fd08a8e058dfc8ab70937238bf
+  languageName: node
+  linkType: hard
+
+"inversify-inject-decorators@npm:3.1.0":
+  version: 3.1.0
+  resolution: "inversify-inject-decorators@npm:3.1.0"
+  checksum: 61fd6948c0914ec1c6f10a87903c949d3987903fdb2d23952a1257223f192d0386862974568044dd73d2fcf4f0f37d59eb4dc83124b1d143ed4852266e1585b6
   languageName: node
   linkType: hard
 

@@ -37,6 +37,10 @@ export default function WorldMap() {
             sand: 0.3,
           }
         }
+      },
+      {
+        generator: 'cellular',
+        options: undefined,
       }
     ]);
 

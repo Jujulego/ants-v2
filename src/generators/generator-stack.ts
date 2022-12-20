@@ -2,22 +2,24 @@ import { Point, pointsOf, Shape } from '@jujulego/2d-maths';
 import { injectable } from 'inversify';
 
 import { container } from '@/inversify.config';
+import { BST } from '@/utils/bst';
 import { type ITile } from '@/world/tile';
 import { WorldService } from '@/world/world.service';
 
 import {
-  TileGenerator,
+  TileGenerator, TileGeneratorCache,
   TileGeneratorLimit,
   TileGeneratorOptions,
   TileGeneratorPrevious,
   type TileGeneratorType
 } from './tile.generator';
+import { CellularGenerator } from './cellular.generator';
 import { RandomGenerator } from './random.generator';
 import { UniformGenerator } from './uniform.generator';
-import { WorldStackService } from './world-stack.service';
 
 // Constants
 const GENERATORS = {
+  'cellular': CellularGenerator,
   'random': RandomGenerator,
   'uniform': UniformGenerator,
 };// satisfies Record<string, TileGeneratorType>;
@@ -28,7 +30,7 @@ type TileGeneratorOptionMap = {
   [K in TileGeneratorKey]: (typeof GENERATORS)[K] extends TileGeneratorType<infer O> ? O : never;
 };
 
-export interface GeneratorStackStep<K extends TileGeneratorKey = TileGeneratorKey> {
+export type GeneratorStackStep<K extends TileGeneratorKey = TileGeneratorKey> = {
   readonly generator: K;
   readonly limit?: Shape;
   readonly options: TileGeneratorOptionMap[K];
@@ -56,10 +58,16 @@ export class GeneratorStack {
       // Create generator ioc environment
       const env = container.createChild();
 
-      env.bind(TileGeneratorLimit).toConstantValue(step.limit);
+      env.bind(TileGeneratorCache).toConstantValue(BST.empty((tile) => tile.pos, Point.comparator()));
       env.bind(TileGeneratorOptions).toConstantValue(step.options);
-      env.bind(TileGeneratorPrevious).toConstantValue(this._generator);
-      env.bind(WorldService).toConstantValue(new WorldStackService(this._generator));
+
+      if (step.limit) {
+        env.bind(TileGeneratorLimit).toConstantValue(step.limit);
+      }
+
+      if (this._generator) {
+        env.bind(TileGeneratorPrevious).toConstantValue(this._generator);
+      }
 
       // Create generator
       this._generator = env.resolve<TileGenerator>(GENERATORS[step.generator]);
@@ -71,7 +79,7 @@ export class GeneratorStack {
       throw new Error('Stack not yet initiated');
     }
 
-    const tile = await this._generator.generate(world, pos);
+    const tile = await this._generator.generate(pos);
 
     if (tile) {
       await this._world.putTile(world, tile);
@@ -87,7 +95,7 @@ export class GeneratorStack {
     let chunk: ITile[] = [];
 
     for (const pos of pointsOf(shape)) {
-      const tile = await this._generator.generate(world, pos);
+      const tile = await this._generator.generate(pos);
 
       if (tile) {
         chunk.push(tile);

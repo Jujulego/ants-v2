@@ -1,6 +1,7 @@
-import { inject, injectable } from 'inversify';
+import { Point } from '@jujulego/2d-maths';
+import { injectable } from 'inversify';
 
-import { TileGenerator, TileGeneratorOptions } from './tile.generator';
+import { TileGenerator } from './tile.generator';
 
 // Types
 export interface UniformGeneratorOpts {
@@ -10,16 +11,8 @@ export interface UniformGeneratorOpts {
 // Class
 @injectable()
 export class UniformGenerator extends TileGenerator<UniformGeneratorOpts> {
-  // Constructor
-  constructor(
-    @inject(TileGeneratorOptions)
-    private readonly _options: UniformGeneratorOpts,
-  ) {
-    super();
-  }
-
   // Methods
-  protected applyOn(): string {
-    return this._options.biome;
+  protected async applyOn(pos: Point): Promise<string> {
+    return this.options.biome;
   }
 }
