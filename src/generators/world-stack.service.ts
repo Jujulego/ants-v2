@@ -29,7 +29,13 @@ export class WorldStackService extends WorldService {
       throw new Error('Cannot fetch tile using WorldStackService on first step');
     }
 
-    return await this._generator.generate(world, point(pos));
+    const tile = await this._generator.generate(world, point(pos));
+
+    if (!tile) {
+      throw new Error(`Tile ${world}:${pos.x},${pos.y} not found`);
+    }
+
+    return tile;
   }
 
   override async bulkGetTile(world: string, points: IPoint[]): Promise<ITile[]> {
