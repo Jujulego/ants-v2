@@ -8,7 +8,7 @@ import { BaseStep } from './base-step';
 import { StepOptions } from '@/generators/steps/symbols';
 
 // Types
-export interface RandomGeneratorOpts {
+export interface IRandomGeneratorOpts {
   readonly seed: string;
   readonly biomes: Record<string, number>;
 }
@@ -17,13 +17,13 @@ type Cumulated = [biome: string, f: number];
 
 // Class
 @injectable()
-export class RandomStep extends BaseStep<RandomGeneratorOpts> {
+export class RandomStep extends BaseStep<IRandomGeneratorOpts> {
   // Attributes
   private readonly _biomes: BST<Cumulated, number>;
 
   // Constructor
   constructor(
-    @inject(StepOptions) options: RandomGeneratorOpts,
+    @inject(StepOptions) options: IRandomGeneratorOpts,
   ) {
     super();
 

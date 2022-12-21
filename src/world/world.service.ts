@@ -60,10 +60,8 @@ export abstract class WorldService {
 }
 
 // Inject
-const isBrowser = typeof document !== 'undefined';
-
 container.bind(WorldService).toDynamicValue(async () => {
-  if (isBrowser) {
+  if (typeof IDBDatabase !== 'undefined') {
     const { WorldWebService } = await import('./web/world-web.service');
     return container.get(WorldWebService);
   } else {

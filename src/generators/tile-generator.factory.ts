@@ -3,7 +3,7 @@ import { interfaces } from 'inversify';
 
 import { container } from '@/inversify.config';
 import { WorldService } from '@/world/world.service';
-import { type ClassOf } from '@/types';
+import { type IClassOf } from '@/types';
 
 import { STEPS } from './constants';
 import { TileGenerator } from './tile-generator';
@@ -13,23 +13,23 @@ import { StepLimit, StepOptions, StepPrevious } from './steps/symbols';
 // Types
 type StepKey = keyof typeof STEPS;
 type StepOptionMap = {
-  [K in StepKey]: (typeof STEPS)[K] extends ClassOf<BaseStep<infer O>> ? O : never;
+  [K in StepKey]: (typeof STEPS)[K] extends IClassOf<BaseStep<infer O>> ? O : never;
 };
 
-export type TileGeneratorStep<K extends StepKey = StepKey> = {
+export interface ITileGeneratorStep<K extends StepKey = StepKey> {
   readonly generator: K;
-  readonly limit?: Shape;
   readonly options: StepOptionMap[K];
+  readonly limit?: Shape;
 }
 
-export type ITileGeneratorFactory = (steps: TileGeneratorStep[]) => Promise<TileGenerator>;
+export type ITileGeneratorFactory = (steps: ITileGeneratorStep[]) => Promise<TileGenerator>;
 
 // Symbol
 export const TileGeneratorFactory: interfaces.ServiceIdentifier<ITileGeneratorFactory> = Symbol('ants-v2:TileGeneratorFactory');
 
 // Provider
 container.bind(TileGeneratorFactory).toProvider<TileGenerator>(({ container }) => {
-  return async function (steps: TileGeneratorStep[]) {
+  return async function (steps: ITileGeneratorStep[]) {
     // Create steps
     let lastStep: BaseStep | undefined;
 
