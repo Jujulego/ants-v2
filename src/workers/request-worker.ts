@@ -1,11 +1,9 @@
-import { injectable } from 'inversify';
 import { nanoid } from 'nanoid/async';
 import { concatMap, defer, filter, Observable, share, Subject } from 'rxjs';
 
 import { type IMessage, type IPayload } from './message';
 
 // Class
-@injectable()
 export abstract class RequestWorker<Req extends IMessage, Msg extends IMessage> {
   // Attributes
   abstract readonly name: string;

@@ -3,7 +3,7 @@ import { type IPoint, Shape } from '@jujulego/2d-maths';
 import { deserializeShape } from '@/utils/deserialize';
 import { type IMessage } from '@/workers/message';
 
-import { type ITileGeneratorStep } from './tile-generator.factory';
+import { type ITileGeneratorStep } from './types';
 
 // Requests
 export interface ISetupRequest extends IMessage<'setup'> {

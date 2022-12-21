@@ -3,22 +3,22 @@ import { filter, firstValueFrom } from 'rxjs';
 
 import { RequestWorker } from '@/workers/request-worker';
 
-import { type ITileGeneratorStep } from './tile-generator.factory';
+import { type ITileGeneratorStep } from './types';
 import {
   type IAreaRequest,
   type IEndMessage,
   type ISetupRequest,
   type ITileRequest
-} from './tile-generator.message';
+} from './tile-worker.message';
 
 // Worker
-export class TileGeneratorWorker extends RequestWorker<ISetupRequest | ITileRequest | IAreaRequest, IEndMessage> {
+export class TileWorker extends RequestWorker<ISetupRequest | ITileRequest | IAreaRequest, IEndMessage> {
   // Attributes
   readonly name = 'tile-generator';
 
   // Methods
   protected _loadWorker(): Worker {
-    return new Worker(new URL(/* webpackChunkName: "tile-generator" */'./tile-generator.handler.ts', import.meta.url));
+    return new Worker(new URL('./tile-worker.worker.ts', import.meta.url));
   }
 
   async setup(steps: ITileGeneratorStep[]): Promise<void> {

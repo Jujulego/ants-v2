@@ -1,27 +1,15 @@
-import { Shape } from '@jujulego/2d-maths';
 import { interfaces } from 'inversify';
 
 import { container } from '@/inversify.config';
 import { WorldService } from '@/world/world.service';
-import { type IClassOf } from '@/types';
 
 import { STEPS } from './constants';
-import { TileGenerator } from './tile-generator';
 import { BaseStep } from './steps/base-step';
 import { StepLimit, StepOptions, StepPrevious } from './steps/symbols';
+import { TileGenerator } from './tile-generator';
+import { type ITileGeneratorStep } from './types';
 
 // Types
-type StepKey = keyof typeof STEPS;
-type StepOptionMap = {
-  [K in StepKey]: (typeof STEPS)[K] extends IClassOf<BaseStep<infer O>> ? O : never;
-};
-
-export interface ITileGeneratorStep<K extends StepKey = StepKey> {
-  readonly generator: K;
-  readonly options: StepOptionMap[K];
-  readonly limit?: Shape;
-}
-
 export type ITileGeneratorFactory = (steps: ITileGeneratorStep[]) => Promise<TileGenerator>;
 
 // Symbol

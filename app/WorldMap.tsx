@@ -4,9 +4,10 @@ import { rect } from '@jujulego/2d-maths';
 import { NoSsr, Skeleton } from '@mui/material';
 import { Suspense, useEffect } from 'react';
 
-import { ITileGeneratorStep } from '@/generators/tile-generator.factory';
-import { TileGeneratorWorker } from '@/generators/tile-generator.worker';
+import { container } from '@/inversify.config';
 import { BiomeLayer } from '@/layers/BiomeLayer';
+import { ITileGeneratorStep } from '@/generators/types';
+import { TileWorkerFactory } from '@/generators/tile-worker.factory';
 
 // Setup
 const WORLD = 'test';
@@ -54,7 +55,7 @@ const STEPS: ITileGeneratorStep[] = [
 export default function WorldMap() {
   // Effects
   useEffect(() => void (async () => {
-    const generator = new TileGeneratorWorker();
+    const generator = await container.get(TileWorkerFactory)(STEPS);
     await generator.setup(STEPS);
     await generator.generateTilesIn(WORLD, AREA);
 

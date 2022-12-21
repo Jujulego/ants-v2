@@ -19,14 +19,24 @@ export abstract class WorkerHandler<Req extends IMessage, Msg extends IMessage> 
 
     request$$.pipe(
       tap((req) => {
-        console.info(`[${this.name}] Received ${req.type} request (#${req.sessionId})`);
         performance.mark(`receive-${req.sessionId}`);
+        console.debug(
+          `[${this.name}] Received %c${req.type}%c request %c(#${req.sessionId})`,
+          'font-weight: bold',
+          'font-weight: normal',
+          'color: grey'
+        );
       }),
       concatMap(async (req) => {
         // Log queue time
         performance.mark(`end-queue-${req.sessionId}`);
         const queue = performance.measure(`queue-${req.sessionId}`, `receive-${req.sessionId}`, `end-queue-${req.sessionId}`);
-        console.info(`[${this.name}] ${req.type} waited ${ms(queue.duration)} (#${req.sessionId})`);
+        console.debug(
+          `[${this.name}] %c${req.type}%c waited ${ms(queue.duration)} %c(#${req.sessionId})`,
+          'font-weight: bold',
+          'font-weight: normal',
+          'color: grey'
+        );
 
         try {
           return await this.handle(req);
@@ -35,7 +45,12 @@ export abstract class WorkerHandler<Req extends IMessage, Msg extends IMessage> 
           performance.mark(`end-compute-${req.sessionId}`);
           const compute = performance.measure(`compute-${req.sessionId}`, `end-queue-${req.sessionId}`, `end-compute-${req.sessionId}`);
 
-          console.info(`[${this.name}] ${req.type} request took ${ms(compute.duration)} (#${req.sessionId})`);
+          console.info(
+            `[${this.name}] %c${req.type}%c took ${ms(compute.duration)} %c(#${req.sessionId})`,
+            'font-weight: bold',
+            'font-weight: normal',
+            'color: grey'
+          );
         }
       }),
     ).subscribe((res) => {

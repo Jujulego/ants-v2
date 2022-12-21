@@ -13,12 +13,12 @@ import {
   type IEndMessage,
   type ISetupRequest,
   type ITileRequest
-} from './tile-generator.message';
+} from './tile-worker.message';
 import { IPayload } from '@/workers/message';
 
 // Handler
 @injectable()
-class TileGeneratorHandler extends WorkerHandler<ISetupRequest | ITileRequest | IAreaRequest, IEndMessage> {
+class TileWorkerWorker extends WorkerHandler<ISetupRequest | ITileRequest | IAreaRequest, IEndMessage> {
   // Attributes
   readonly name = 'tile-generator';
   private _generator?: TileGenerator;
@@ -77,4 +77,4 @@ class TileGeneratorHandler extends WorkerHandler<ISetupRequest | ITileRequest | 
 }
 
 // Initiate worker
-container.resolve(TileGeneratorHandler);
+container.resolve(TileWorkerWorker);
