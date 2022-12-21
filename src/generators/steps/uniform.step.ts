@@ -1,7 +1,7 @@
 import { Point } from '@jujulego/2d-maths';
 import { injectable } from 'inversify';
 
-import { TileGenerator } from './tile.generator';
+import { BaseStep } from './base-step';
 
 // Types
 export interface UniformGeneratorOpts {
@@ -10,7 +10,7 @@ export interface UniformGeneratorOpts {
 
 // Class
 @injectable()
-export class UniformGenerator extends TileGenerator<UniformGeneratorOpts> {
+export class UniformStep extends BaseStep<UniformGeneratorOpts> {
   // Methods
   protected async applyOn(pos: Point): Promise<string> {
     return this.options.biome;

@@ -4,8 +4,8 @@ import { rect } from '@jujulego/2d-maths';
 import { NoSsr, Skeleton } from '@mui/material';
 import { Suspense, useEffect } from 'react';
 
+import { TileGeneratorFactory } from '@/generators/tile-generator.factory';
 import { BiomeLayer } from '@/layers/BiomeLayer';
-import { GeneratorStack } from '@/generators/generator-stack';
 import { container } from '@/inversify.config';
 
 // Setup
@@ -17,9 +17,7 @@ const SEED = 'tata';
 export default function WorldMap() {
   // Effects
   useEffect(() => void (async () => {
-    const generator = await container.getAsync(GeneratorStack);
-
-    generator.setup([
+    const generator = await container.get(TileGeneratorFactory)([
       {
         generator: 'uniform',
         options: {

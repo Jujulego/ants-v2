@@ -3,7 +3,7 @@ import { Point, vector } from '@jujulego/2d-maths';
 
 import { ITile } from '@/world/tile';
 
-import { TileGenerator } from './tile.generator';
+import { CachedStep } from './cached-step';
 
 // Constants
 const DIRECTIONS = [
@@ -19,15 +19,7 @@ const DIRECTIONS = [
 
 // Class
 @injectable()
-export class CellularGenerator extends TileGenerator<undefined> {
-  // Constructor
-  constructor() {
-    super();
-
-    // Config
-    this.config.cacheBaseTiles = true;
-  }
-
+export class CellularStep extends CachedStep<undefined> {
   // Methods
   private async _getNeighbors(pos: Point): Promise<ITile[]> {
     const toRequest: Point[] = [];

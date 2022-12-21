@@ -4,7 +4,8 @@ import seedrandom from 'seedrandom';
 
 import { BST } from '@/utils/bst';
 
-import { TileGenerator, TileGeneratorOptions } from './tile.generator';
+import { BaseStep } from './base-step';
+import { StepOptions } from '@/generators/steps/symbols';
 
 // Types
 export interface RandomGeneratorOpts {
@@ -16,13 +17,13 @@ type Cumulated = [biome: string, f: number];
 
 // Class
 @injectable()
-export class RandomGenerator extends TileGenerator<RandomGeneratorOpts> {
+export class RandomStep extends BaseStep<RandomGeneratorOpts> {
   // Attributes
   private readonly _biomes: BST<Cumulated, number>;
 
   // Constructor
   constructor(
-    @inject(TileGeneratorOptions) options: RandomGeneratorOpts,
+    @inject(StepOptions) options: RandomGeneratorOpts,
   ) {
     super();
 
