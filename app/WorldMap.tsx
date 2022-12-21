@@ -56,17 +56,10 @@ export default function WorldMap() {
   // Effects
   useEffect(() => void (async () => {
     const generator = await container.get(TileWorkerFactory)(STEPS);
-    await generator.setup(STEPS);
     await generator.generateTilesIn(WORLD, AREA);
 
     // const generator = await container.get(TileGeneratorFactory)(STEPS);
-    //
-    // performance.mark('generation-start');
     // await generator.generateTilesIn(WORLD, AREA);
-    // performance.mark('generation-end');
-    //
-    // const duration = performance.measure('generation-duration', 'generation-start', 'generation-end');
-    // console.info(`generation took ${duration.duration}ms`);
   })(), []);
 
   // Render
