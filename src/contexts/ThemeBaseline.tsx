@@ -4,7 +4,7 @@ import { ReactNode, useContext, useMemo } from 'react';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
-import { ColorModeContext } from '@/contexts/ColorModeProvider';
+import { ColorModeContext } from '@/contexts/ColorMode';
 import createTheme from '@/theme';
 
 // Types

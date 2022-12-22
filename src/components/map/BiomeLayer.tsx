@@ -1,23 +1,15 @@
 'use client';
 
-import { IPoint, matrix, Rect } from '@jujulego/2d-maths';
-import { $queryfy } from '@jujulego/aegis';
+import { IPoint, matrix } from '@jujulego/2d-maths';
 import { styled } from '@mui/material';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { FC, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 
 import { BiomeName, BIOMES } from '@/biomes';
-import { useQuery } from '@/hooks/useQuery';
-import { container } from '@/inversify.config';
+import { MapViewerContext } from '@/contexts/MapViewer';
+import { useMapTiles } from '@/hooks/useMapTiles';
 import { tileKey } from '@/world/tile';
-import { WorldService } from '@/world/world.service';
 
 // Types
-export interface BiomeLayerProps {
-  readonly world: string;
-  readonly area: Rect;
-}
-
 interface TileProps {
   readonly pos: IPoint;
 }
@@ -41,26 +33,22 @@ const Layer = styled('div', { skipSx: true })<LayerProps>((props) => ({
   gridAutoColumns: props.s,
 }));
 
-// Utils
-const $worldClient = $queryfy(container.getAsync(WorldService));
-
 // Components
-export const BiomeLayer: FC<BiomeLayerProps> = (props) => {
-  // Load tiles
-  const worldClient = useQuery($worldClient);
-  const tiles = useLiveQuery(() => worldClient.loadTilesIn(props.world, props.area), [props.world, props.area, worldClient], []);
+export default function BiomeLayer() {
+  const { area, tileSize } = useContext(MapViewerContext);
+  const tiles = useMapTiles();
 
   // Memos
   const toScreen = useMemo(() => matrix({
     a: 1, c: 0,
     b: 0, d: -1,
-    tx: props.area.l < 0 ? -props.area.l : 0,
-    ty: (props.area.b < 0 ? props.area.b : 0) + props.area.size.dy
-  }), [props.area]);
+    tx: area.l < 0 ? -area.l : 0,
+    ty: (area.b < 0 ? area.b : 0) + area.size.dy
+  }), [area]);
 
   // Render
   return (
-    <Layer s={32}>
+    <Layer s={tileSize}>
       { tiles.map((tile) => (
         <Tile
           key={tileKey(tile)}

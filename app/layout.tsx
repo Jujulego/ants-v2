@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { ReactNode } from 'react';
 
 import { CookiesProvider } from '@/client-utils';
-import ColorModeProvider from '@/contexts/ColorModeProvider';
+import ColorMode from '@/contexts/ColorMode';
 import ThemeBaseline from '@/contexts/ThemeBaseline';
 
 // Types
@@ -28,11 +28,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html>
       <body>
         <CookiesProvider>
-          <ColorModeProvider defaultMode={readPrefersDarkCookie()}>
+          <ColorMode defaultMode={readPrefersDarkCookie()}>
             <ThemeBaseline>
               { children }
             </ThemeBaseline>
-          </ColorModeProvider>
+          </ColorMode>
         </CookiesProvider>
       </body>
     </html>

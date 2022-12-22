@@ -12,7 +12,7 @@ export type ITileWorkerFactory = (steps: ITileGeneratorStep[]) => Promise<TileWo
 export const TileWorkerFactory: interfaces.ServiceIdentifier<ITileWorkerFactory> = Symbol('ants-v2:TileWorkerFactory');
 
 // Provider
-container.bind(TileWorkerFactory).toProvider<TileWorker>(({ container }) => {
+container.bind(TileWorkerFactory).toProvider<TileWorker>(() => {
   return async function (steps: ITileGeneratorStep[]) {
     const worker = new TileWorker();
     await worker.setup(steps);

@@ -26,7 +26,7 @@ export const ColorModeContext = createContext<ColorModeContextProps>({
 });
 
 // Provider
-export default function ColorModeProvider({ children, defaultMode }: ColorModeProps) {
+export default function ColorMode({ children, defaultMode }: ColorModeProps) {
   const [cookie, setCookie] = useCookies(['prefers-dark']);
 
   let system = useMediaQuery('(prefers-color-scheme: dark)', {
