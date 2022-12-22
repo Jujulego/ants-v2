@@ -2,9 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  transpilePackages: ['dexie'],
   experimental: {
     appDir: true,
-    transpilePackages: ['dexie']
   }
 };
 
