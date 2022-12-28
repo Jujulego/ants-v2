@@ -4,13 +4,15 @@ import BiomeLayer from '@/components/map/BiomeLayer';
 import GenerateMapTiles from '@/components/map/GenerateMapTiles';
 import MapLayout from '@/components/map/MapLayout';
 import { Box, NoSsr } from '@/components/mui';
-import { ITileGeneratorStep } from '@/generators/types';
+import { type ITileGeneratorStep } from '@/generators/types';
+import KeepIn from '@/components/map/KeepIn';
 
 // Setup
 const WORLD = 'test';
 const SEED = 'tata';
+const ZONE = rect({ x: 0, y: 0 }, { dx: 40, dy: 20 });
 
-const STEPS: ITileGeneratorStep[] = [
+const STEPS = [
   {
     generator: 'uniform',
     options: {
@@ -19,7 +21,7 @@ const STEPS: ITileGeneratorStep[] = [
   },
   {
     generator: 'random',
-    limit: rect({ x: 0, y: 0 }, { dx: 40, dy: 20 }),
+    limit: ZONE,
     options: {
       seed: SEED,
       biomes: {
@@ -45,14 +47,15 @@ const STEPS: ITileGeneratorStep[] = [
     generator: 'cellular',
     options: undefined,
   }
-];
+] satisfies ITileGeneratorStep[];
 
 // Page
 export default async function Page() {
   return (
-    <Box sx={{ height: '100vh' }}>
+    <Box sx={{ height: '100vh', overflow: 'hidden' }}>
       <NoSsr>
-        <MapLayout world={WORLD}>
+        <MapLayout world={WORLD} initialPosition={ZONE.bl.add(ZONE.size.dot(0.5).floor)}>
+          <KeepIn zone={ZONE} />
           <GenerateMapTiles steps={STEPS} />
           <BiomeLayer />
         </MapLayout>
