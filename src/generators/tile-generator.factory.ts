@@ -1,3 +1,4 @@
+import { shape } from '@jujulego/2d-maths';
 import { interfaces } from 'inversify';
 
 import { container } from '@/inversify.config';
@@ -32,7 +33,7 @@ container.bind(TileGeneratorFactory).toProvider<TileGenerator>(({ container }) =
       }
 
       if (step.limit) {
-        env.bind(StepLimit).toConstantValue(step.limit);
+        env.bind(StepLimit).toConstantValue(shape(step.limit));
       }
 
       // Create generator

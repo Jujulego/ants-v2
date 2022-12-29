@@ -1,4 +1,4 @@
-import { Point, pointsOf, Shape } from '@jujulego/2d-maths';
+import { type IShape, Point, pointsOf } from '@jujulego/2d-maths';
 
 import { type ITile } from '@/world/tile';
 import { WorldService } from '@/world/world.service';
@@ -22,7 +22,7 @@ export class TileGenerator {
     }
   }
 
-  async generateTilesIn(world: string, shape: Shape, chunkSize = 1000): Promise<void> {
+  async generateTilesIn(world: string, shape: IShape, chunkSize = 1000): Promise<void> {
     // Store by chunks
     let chunk: ITile[] = [];
 

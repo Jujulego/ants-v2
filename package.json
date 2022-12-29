@@ -13,7 +13,7 @@
     "@emotion/react": "11.10.5",
     "@emotion/server": "11.10.0",
     "@emotion/styled": "11.10.5",
-    "@jujulego/2d-maths": "1.5.1",
+    "@jujulego/2d-maths": "1.6.0",
     "@jujulego/aegis": "1.0.0-rc.8",
     "@jujulego/event-tree": "1.1.0",
     "@mui/material": "5.11.2",
@@ -49,10 +49,5 @@
     "jest-environment-jsdom": "29.3.1",
     "typescript": "4.9.4"
   },
-  "packageManager": "yarn@3.3.1",
-  "dependenciesMeta": {
-    "next@13.1.1": {
-      "unplugged": true
-    }
-  }
+  "packageManager": "yarn@3.3.1"
 }

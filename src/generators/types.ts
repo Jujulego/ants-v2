@@ -1,4 +1,4 @@
-import { Shape } from '@jujulego/2d-maths';
+import { type IShape } from '@jujulego/2d-maths';
 
 import { type IClassOf } from '@/types';
 
@@ -14,5 +14,5 @@ type StepOptionMap = {
 export interface ITileGeneratorStep<K extends StepKey = StepKey> {
   readonly generator: K;
   readonly options: StepOptionMap[K];
-  readonly limit?: Shape;
+  readonly limit?: IShape;
 }

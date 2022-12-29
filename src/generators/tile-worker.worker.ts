@@ -1,20 +1,13 @@
-import { Point } from '@jujulego/2d-maths';
+import { Point, shape } from '@jujulego/2d-maths';
 import { inject, injectable } from 'inversify';
 
 import { container } from '@/inversify.config';
+import { type IPayload } from '@/workers/message';
 import { WorkerHandler } from '@/workers/worker-handler';
 
 import { TileGenerator } from './tile-generator';
 import { type ITileGeneratorFactory, TileGeneratorFactory } from './tile-generator.factory';
-import {
-  deserializeAreaRequest,
-  deserializeSetupRequest,
-  type IAreaRequest,
-  type IEndMessage,
-  type ISetupRequest,
-  type ITileRequest
-} from './tile-worker.message';
-import { IPayload } from '@/workers/message';
+import { type IAreaRequest, type IEndMessage, type ISetupRequest, type ITileRequest } from './tile-worker.message';
 
 // Handler
 @injectable()
@@ -54,8 +47,7 @@ class TileWorkerWorker extends WorkerHandler<ISetupRequest | ITileRequest | IAre
   }
 
   private async _handleSetup(request: ISetupRequest): Promise<void> {
-    const { steps } = deserializeSetupRequest(request);
-    this._generator = await this._generatorFactory(steps);
+    this._generator = await this._generatorFactory(request.steps);
   }
 
   private async _handleTile(request: ITileRequest): Promise<void> {
@@ -71,8 +63,7 @@ class TileWorkerWorker extends WorkerHandler<ISetupRequest | ITileRequest | IAre
       throw new Error('Worker\'s generator not yet initialised');
     }
 
-    const { area } = deserializeAreaRequest(request);
-    await this._generator.generateTilesIn(request.world, area);
+    await this._generator.generateTilesIn(request.world, shape(request.area));
   }
 }
 

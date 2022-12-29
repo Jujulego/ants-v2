@@ -1,4 +1,4 @@
-import { type IPoint, Shape } from '@jujulego/2d-maths';
+import { type IPoint, type IShape } from '@jujulego/2d-maths';
 import { filter, firstValueFrom } from 'rxjs';
 
 import { RequestWorker } from '@/workers/request-worker';
@@ -37,7 +37,7 @@ export class TileWorker extends RequestWorker<ISetupRequest | ITileRequest | IAr
     ));
   }
 
-  async generateTilesIn(world: string, area: Shape): Promise<void> {
+  async generateTilesIn(world: string, area: IShape): Promise<void> {
     const msg$ = this.request({ type: 'area', world, area });
 
     await firstValueFrom(msg$.pipe(
