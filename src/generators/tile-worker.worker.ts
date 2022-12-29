@@ -1,4 +1,4 @@
-import { Point, shape } from '@jujulego/2d-maths';
+import { Point } from '@jujulego/2d-maths';
 import { inject, injectable } from 'inversify';
 
 import { container } from '@/inversify.config';
@@ -63,7 +63,7 @@ class TileWorkerWorker extends WorkerHandler<ISetupRequest | ITileRequest | IAre
       throw new Error('Worker\'s generator not yet initialised');
     }
 
-    await this._generator.generateTilesIn(request.world, shape(request.area));
+    await this._generator.generateTilesIn(request.world, request.area);
   }
 }
 
