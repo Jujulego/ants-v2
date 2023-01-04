@@ -1,5 +1,8 @@
 {
   "extends": "next/core-web-vitals",
+  "rules": {
+    "@next/next/no-html-link-for-pages": "off"
+  },
   "overrides": [
     {
       "files": "**/*.{js,jsx,ts,tsx}",
