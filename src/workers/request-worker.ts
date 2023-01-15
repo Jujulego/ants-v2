@@ -8,7 +8,7 @@ export abstract class RequestWorker<Req extends IMessage, Msg extends IMessage> 
   // Attributes
   abstract readonly name: string;
 
-  private _worker?: Worker;
+  private _worker?: Promise<Worker>;
   private readonly _messages$$ = new Subject<IPayload<Msg>>();
   readonly messages$ = this._messages$$.asObservable();
 
@@ -45,7 +45,7 @@ export abstract class RequestWorker<Req extends IMessage, Msg extends IMessage> 
 
     while (tries > 0) {
       try {
-        this._worker = await this._startWorker();
+        this._worker = this._startWorker();
         return this._worker;
       } catch (err) {
         console.warn(`Failed to load worker ${this.name} retrying in 1s`);
@@ -61,13 +61,13 @@ export abstract class RequestWorker<Req extends IMessage, Msg extends IMessage> 
     throw new Error(`Unable to load worker ${this.name}`);
   }
 
-  request(req: Req): Observable<Msg> {
+  request(req: Req, priority = 0): Observable<Msg> {
     return defer(async () => {
       const sessionId = await nanoid();
 
       // Send request
       this._getWorker()
-        .then((worker) => worker.postMessage({ sessionId, ...req }));
+        .then((worker) => worker.postMessage({ sessionId, sessionPriority: priority, ...req }));
 
       return sessionId;
     }).pipe(

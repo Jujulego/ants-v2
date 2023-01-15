@@ -22,7 +22,7 @@ export class TileWorker extends RequestWorker<ISetupRequest | ITileRequest | IAr
   }
 
   async setup(steps: ITileGeneratorStep[]): Promise<void> {
-    const msg$ = this.request({ type: 'setup', steps });
+    const msg$ = this.request({ type: 'setup', steps }, 1);
 
     await firstValueFrom(msg$.pipe(
       filter(({ type }) => type === 'end'),

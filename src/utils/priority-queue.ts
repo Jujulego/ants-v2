@@ -17,7 +17,7 @@ export class PriorityQueue<T> implements AsyncIterable<T> {
 
   // Methods
   insert(data: T, priority = 0): void {
-    this._bst.insert({ priority, data }, 'after');
+    this._bst.insert({ priority, data }, 'before');
     this._condition.check();
   }
 

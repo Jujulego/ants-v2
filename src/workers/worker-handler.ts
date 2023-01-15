@@ -27,7 +27,7 @@ export abstract class WorkerHandler<Req extends IMessage, Msg extends IMessage> 
         'color: grey'
       );
 
-      this._queue.insert(req);
+      this._queue.insert(req, req.sessionPriority);
     });
 
     this._loop();
@@ -59,6 +59,8 @@ export abstract class WorkerHandler<Req extends IMessage, Msg extends IMessage> 
         if (res) {
           this.send(res);
         }
+      } catch (err) {
+        console.error(err);
       } finally {
         // Log compute time
         performance.mark(`end-compute-${req.type}-${req.sessionId}`);

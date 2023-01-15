@@ -5,4 +5,5 @@ export interface IMessage<T extends string = string> {
 
 export type IPayload<M extends IMessage> = M & {
   readonly sessionId: string;
+  readonly sessionPriority?: number;
 };
