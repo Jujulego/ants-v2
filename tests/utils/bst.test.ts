@@ -85,6 +85,91 @@ describe('BST.insert', () => {
     expect(bst.array)
       .toEqual([6]);
   });
+
+  describe('[insert modes]', () => {
+    const data = [{ data: 'a', key: 0 }, { data: 'b', key: 1 }, { data: 'c', key: 1 }, { data: 'd', key: 1 }, { data: 'e', key: 2 }];
+
+    describe('[anywhere mode]', () => {
+      it('should insert alongside elements with same key', () => {
+        const bst = BST.fromArray(data, item => item.key, (a, b) => a - b);
+        bst.insert({ data: 'test', key: 1 }, 'anywhere');
+
+        expect(bst.array)
+          .toEqual([
+            { data: 'a', key: 0 },
+            { data: 'b', key: 1 },
+            { data: 'c', key: 1 },
+            { data: 'test', key: 1 },
+            { data: 'd', key: 1 },
+            { data: 'e', key: 2 }
+          ]);
+      });
+    });
+
+    describe('[after mode]', () => {
+      it('should insert after elements with same key', () => {
+        const bst = BST.fromArray(data, item => item.key, (a, b) => a - b);
+        bst.insert({ data: 'test', key: 1 }, 'after');
+
+        expect(bst.array)
+          .toEqual([
+            { data: 'a', key: 0 },
+            { data: 'b', key: 1 },
+            { data: 'c', key: 1 },
+            { data: 'd', key: 1 },
+            { data: 'test', key: 1 },
+            { data: 'e', key: 2 }
+          ]);
+      });
+
+      it('should insert after last', () => {
+        const bst = BST.fromArray(data, item => item.key, (a, b) => a - b);
+        bst.insert({ data: 'test', key: 2 }, 'after');
+
+        expect(bst.array)
+          .toEqual([
+            { data: 'a', key: 0 },
+            { data: 'b', key: 1 },
+            { data: 'c', key: 1 },
+            { data: 'd', key: 1 },
+            { data: 'e', key: 2 },
+            { data: 'test', key: 2 }
+          ]);
+      });
+    });
+
+    describe('before mode', () => {
+      it('should insert before elements with same key', () => {
+        const bst = BST.fromArray(data, item => item.key, (a, b) => a - b);
+        bst.insert({ data: 'test', key: 1 }, 'before');
+
+        expect(bst.array)
+          .toEqual([
+            { data: 'a', key: 0 },
+            { data: 'test', key: 1 },
+            { data: 'b', key: 1 },
+            { data: 'c', key: 1 },
+            { data: 'd', key: 1 },
+            { data: 'e', key: 2 }
+          ]);
+      });
+
+      it('should insert before first', () => {
+        const bst = BST.fromArray(data, item => item.key, (a, b) => a - b);
+        bst.insert({ data: 'test', key: 0 }, 'before');
+
+        expect(bst.array)
+          .toEqual([
+            { data: 'test', key: 0 },
+            { data: 'a', key: 0 },
+            { data: 'b', key: 1 },
+            { data: 'c', key: 1 },
+            { data: 'd', key: 1 },
+            { data: 'e', key: 2 }
+          ]);
+      });
+    });
+  });
 });
 
 describe('BST.remove', () => {

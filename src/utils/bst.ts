@@ -1,6 +1,7 @@
 // Types
 export type ExtractKey<T, K> = (elem: T) => K;
 export type NearestMode = 'lt' | 'lte' | 'gte' | 'gt';
+export type InsertMode = 'before' | 'anywhere' | 'after';
 export type Comparator<T> = (a: T, b: T) => number;
 
 // Constants
@@ -180,7 +181,7 @@ export class BST<T, K = T> {
   // - modifying
   /**
    * Indicates that keys have changed.
-   * It will resorts the whole tree.
+   * It will re-sort the whole tree.
    */
   updatedKeys(): void {
     this._array.sort((a, b) => this._comparator(this._extractor(a), this._extractor(b)));
@@ -189,13 +190,32 @@ export class BST<T, K = T> {
   /**
    * Adds a new element to the tree
    * @param elem
+   * @param mode
    */
-  insert(elem: T): T {
+  insert(elem: T, mode: InsertMode = 'anywhere'): T {
     if (this.length === 0) {
       this._array.push(elem);
     } else {
       const key = this._extractor(elem);
-      const idx = this.shouldBeAt(key);
+      let idx = this.shouldBeAt(key);
+
+      if (mode === 'before') {
+        for (; idx > 0; --idx) {
+          const obj = this._array[idx - 1];
+
+          if (this._comparator(this._extractor(obj), key) < 0) {
+            break;
+          }
+        }
+      } else if (mode === 'after') {
+        for (; idx < this._array.length; ++idx) {
+          const obj = this._array[idx];
+
+          if (this._comparator(this._extractor(obj), key) > 0) {
+            break;
+          }
+        }
+      }
 
       this._array.splice(idx, 0, elem);
     }
