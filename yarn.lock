@@ -999,6 +999,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jujulego/event-tree@npm:1.1.1":
+  version: 1.1.1
+  resolution: "@jujulego/event-tree@npm:1.1.1"
+  checksum: f252bf1d3c04a892374efd0d4950e878bed617cce201c1d5d5d9aa67f3f5633a979decdb72ae0602b640aadbc1f4003ab2c04aa8da202184827d025f2395d8b9
+  languageName: node
+  linkType: hard
+
 "@mui/base@npm:5.0.0-alpha.113":
   version: 5.0.0-alpha.113
   resolution: "@mui/base@npm:5.0.0-alpha.113"
@@ -1940,7 +1947,7 @@ __metadata:
     "@emotion/styled": 11.10.5
     "@jujulego/2d-maths": 1.6.0
     "@jujulego/aegis": 1.0.0-rc.8
-    "@jujulego/event-tree": 1.1.0
+    "@jujulego/event-tree": 1.1.1
     "@mui/material": 5.11.4
     "@next/font": 13.1.2
     "@testing-library/jest-dom": 5.16.5
