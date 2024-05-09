@@ -1665,10 +1665,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/seedrandom@npm:3.0.4":
-  version: 3.0.4
-  resolution: "@types/seedrandom@npm:3.0.4"
-  checksum: 994f444f2c4ea2c7d8ca3358fc16f4a912c71b2d015647597ec28c8e6ba403101e8075bde382977189b065fcbb64d6af09a9e55d5db444e2b95f7643efb2f8c3
+"@types/seedrandom@npm:3.0.8":
+  version: 3.0.8
+  resolution: "@types/seedrandom@npm:3.0.8"
+  checksum: 9651de4ecb5ad060053678d6a42403dd78222bcca80016417c23b58b4f739e544b7197a78b97d6862cf417ea80fd2df612cc50ca0fa387fbe794e326a382ab0b
   languageName: node
   linkType: hard
 
@@ -1949,7 +1949,7 @@ __metadata:
     "@types/node": 18.11.18
     "@types/react": 18.0.26
     "@types/react-dom": 18.0.10
-    "@types/seedrandom": 3.0.4
+    "@types/seedrandom": 3.0.8
     class-transformer: 0.5.1
     dexie: 3.2.2
     dexie-react-hooks: 1.1.1
