@@ -1951,7 +1951,7 @@ __metadata:
     "@types/react-dom": 18.0.10
     "@types/seedrandom": 3.0.4
     class-transformer: 0.5.1
-    dexie: 3.2.2
+    dexie: 3.2.7
     dexie-react-hooks: 1.1.1
     eslint: 8.32.0
     eslint-config-next: 13.1.6
@@ -2788,10 +2788,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dexie@npm:3.2.2":
-  version: 3.2.2
-  resolution: "dexie@npm:3.2.2"
-  checksum: 7a21079f7ab139ebd724a009917f9293f2b01c341e2a3cd51d2455dda4d4e78b9ca7de0373e963108395cf1921ce7f6556cac967c1e957005a3c7c11794ceccf
+"dexie@npm:3.2.7":
+  version: 3.2.7
+  resolution: "dexie@npm:3.2.7"
+  checksum: 257504ed23cea2e5ed5c18a17a031c0a44aff70c5b3d6a63536b544cec9027c4c492a608165d5e7a44a104570c92dec2aa59c7bcec0c65f52000f979e1193dfd
   languageName: node
   linkType: hard
 
