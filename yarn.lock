@@ -1952,7 +1952,7 @@ __metadata:
     "@types/seedrandom": 3.0.4
     class-transformer: 0.5.1
     dexie: 3.2.2
-    dexie-react-hooks: 1.1.1
+    dexie-react-hooks: 1.1.7
     eslint: 8.32.0
     eslint-config-next: 13.1.6
     eslint-plugin-jest: 27.2.1
@@ -2777,14 +2777,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dexie-react-hooks@npm:1.1.1":
-  version: 1.1.1
-  resolution: "dexie-react-hooks@npm:1.1.1"
+"dexie-react-hooks@npm:1.1.7":
+  version: 1.1.7
+  resolution: "dexie-react-hooks@npm:1.1.7"
   peerDependencies:
     "@types/react": ">=16"
-    dexie: ">=3.1.0-alpha.1 <5.0.0"
+    dexie: ^3.2 || ^4.0.1-alpha
     react: ">=16"
-  checksum: 09e1b1d4ebc248d103eb13c8f77733f4c140478350d2b8f3989af2fedb45e0d4ae7a07df9281ade162a3264ff621db35899b47d6edf5bf532ba22d571f6f1496
+  checksum: d1133546ab8d345a8e10d38d272eaa1efa3a34e7bdefacd2acc2419f30e52ea02ab29b19d8911755fbda5882e59d132ba5c3cb840dd4430d3cbca15ef5ea610e
   languageName: node
   linkType: hard
 
