@@ -15,7 +15,7 @@
     "@emotion/styled": "11.10.5",
     "@jujulego/2d-maths": "1.6.0",
     "@jujulego/aegis": "1.0.0-rc.8",
-    "@jujulego/event-tree": "1.1.0",
+    "@jujulego/event-tree": "1.1.1",
     "@mui/material": "5.11.4",
     "@next/font": "13.1.6",
     "class-transformer": "0.5.1",
